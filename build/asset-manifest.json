@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/hire-wire-front-end/static/css/main.1a3c1d50.css",
+    "main.js": "/hire-wire-front-end/static/js/main.e9a1d6cb.js",
+    "static/js/453.d8a71a43.chunk.js": "/hire-wire-front-end/static/js/453.d8a71a43.chunk.js",
+    "index.html": "/hire-wire-front-end/index.html",
+    "main.1a3c1d50.css.map": "/hire-wire-front-end/static/css/main.1a3c1d50.css.map",
+    "main.e9a1d6cb.js.map": "/hire-wire-front-end/static/js/main.e9a1d6cb.js.map",
+    "453.d8a71a43.chunk.js.map": "/hire-wire-front-end/static/js/453.d8a71a43.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1a3c1d50.css",
+    "static/js/main.e9a1d6cb.js"
+  ]
+}
