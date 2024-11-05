@@ -1,0 +1,95 @@
+/* Application.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1d1d1d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .application-container {
+    width: 100%;
+    max-width: 2000px;
+    margin: 20px auto;
+  }
+  
+  .application-nav {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .application-nav span {
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .application-nav span:hover {
+    color: white;
+  }
+  
+  .application-box {
+    background-color: #333;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .application-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-row {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-bottom: 0rem;
+  }
+  
+  .input-group {
+    flex: 1;
+    max-width: 300px;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 0.3rem;
+    text-align: left;
+  }
+  
+  .input-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #444;
+    color: white;
+    resize: none;
+    height: 200px;
+  }
+  
+  .generate-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  .generate-button:hover {
+    background-color: #2563eb;
+  }
+  

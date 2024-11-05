@@ -1,0 +1,65 @@
+/* Landing.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('login_images/login_page.png') no-repeat center center fixed;
+  }
+  
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: url('login_images/login_page.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  .landing-container h1 {
+    font-size: 4rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .login-button, .register-button {
+    width: 250px;
+    padding: 1rem 0;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button {
+    background-color: #3B82F6; /* Blue color for Log In button */
+    color: #ffffff;
+  }
+  
+  .login-button:hover {
+    background-color: #2563EB;
+  }
+  
+  .register-button {
+    background-color: #333333; /* Dark color for Register button */
+    color: #ffffff;
+  }
+  
+  .register-button:hover {
+    background-color: #444444;
+  }
+  
