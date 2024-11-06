@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Landing from './Landing';
 import UserProfile from './UserProfile';
 import Application from './Application';
@@ -8,9 +8,9 @@ import Login from './Login';
 
 function App() {
   return (
-    <Router>
+    <Router basename = "/hire-wire-front-end">
       <Switch>
-        <Route exact path="/landing">
+        <Route exact path="/">
           <Landing />
         </Route>
         <Route exact path="/login">
