@@ -11,7 +11,7 @@ function Application() {
   };
 
   const handleLogOut = () => {
-    history.push('/landing');
+    history.push('/');
   }
 
   return (

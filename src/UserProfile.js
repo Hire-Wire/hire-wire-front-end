@@ -71,7 +71,7 @@ function UserProfile() {
   }
 
   const handleLogOut = () => {
-    history.push('/landing');
+    history.push('/');
   }
 
   return (
