@@ -1,112 +1,123 @@
 /* UserProfile.css */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1d1d1d;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .profile-container {
-    width: 100%;
-    max-width: 2000px;
-    margin: 20px auto;
-  }
-  
-  .profile-nav {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-  }
-  
-  .profile-nav span {
-    cursor: pointer;
-    color: #ccc;
-  }
-  
-  .profile-nav span:hover {
-    color: white;
-  }
-  
-  .profile-box {
-    background-color: #333;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-  }
-  
-  .profile-box h2 {
-    margin-top: 0;
-    font-size: 1.8rem;
-  }
-  
-  .input-row {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-  
-  .input-group {
-    flex: 1;
-    margin-bottom: 1rem;
-  }
-  
-  .input-group label {
-    display: block;
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 0.3rem;
-  }
-  
-  .input-group input,
-  .input-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 5px;
-    border: none;
-    background-color: #444;
-    color: white;
-  }
-  
-  .input-group textarea {
-    height: 100px;
-    resize: none;
-  }
-  
-  .add-button,
-  .remove-button {
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin: 1rem 0;
-    display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .add-button:hover {
-    background-color: #2563eb;
-  }
-  
-  .remove-button {
-    background-color: transparent;
-    border: 1px solid #ccc;
-    color: #ccc;
-    margin-top: 0.5rem;
-  }
-  
-  .remove-button:hover {
-    border-color: #f87171;
-    color: #f87171;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1d1d1d;
+  color: white;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+  height: 100vh; /* Allows content to grow beyond viewport height */
+}
+
+.profile-box {
+  background-color: #333;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.profile-box h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  min-height: 0vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.input-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.input-group {
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 0.3rem;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #444;
+  color: white;
+}
+
+.input-group textarea {
+  height: 100px;
+  resize: none;
+}
+
+.add-button,
+.remove-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin: 1rem 0;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-button:hover {
+  background-color: #2563eb;
+}
+
+.remove-button {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+.remove-button:hover {
+  border-color: #f87171;
+  color: #f87171;
+}
+
+.profile-nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profile-nav button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-nav button:hover {
+  background-color: #666;
+}

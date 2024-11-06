@@ -9,7 +9,7 @@ function Navbar() {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Landing</Link>
         </li>
         <li>
           <Link to="/login">Login</Link>
@@ -18,7 +18,7 @@ function Navbar() {
           <Link to="/userprofile">User Profile</Link>
         </li>
         <li>
-          <Link to="/application">Application</Link>
+          <Link to="/application">Home</Link>
         </li>
       </ul>
     </nav>

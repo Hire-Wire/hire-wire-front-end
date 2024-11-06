@@ -8,7 +8,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('login_images/login_page.png') no-repeat center center fixed;
     background-size: cover;
   }
   

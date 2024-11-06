@@ -1,14 +1,25 @@
 // Application.js
 import React from 'react';
 import './Application.css';
+import { useHistory } from 'react-router-dom';
 
 function Application() {
+  const history = useHistory();
+
+  const handleProfileClick = () => {
+    history.push('/userprofile'); // Navigate to the Login page
+  };
+
+  const handleLogOut = () => {
+    history.push('/landing');
+  }
+
   return (
     <div className="application-container">
       <nav className="application-nav">
-        <span>Profile</span>
-        <span>Applications</span>
-        <span>Log Out</span>
+        <button type = "profile" onClick = {handleProfileClick}> Profile  </button>
+        <button>Application</button>
+        <button type = "logout" onClick = {handleLogOut}>Log Out</button>
       </nav>
 
       <div className="application-box">

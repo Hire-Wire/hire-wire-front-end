@@ -1,8 +1,15 @@
 
 import React from 'react';
 import './Login.css';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  const history = useHistory();
+
+  const handleLoginClick = () => {
+    history.push('/application'); // Navigate to the Login page
+  };
+
   return (
     <div className="login-container">
       <div className="login-box">
@@ -14,7 +21,7 @@ function Login() {
           <label>Password</label>
           <input type="password" placeholder="Password" />
 
-          <button type="submit">Log In</button>
+          <button type="submit" onClick = {handleLoginClick}>Log In</button>
           <p className="forgot-password">
             <a href="/forgot-password">Forgot Password?</a>
           </p>

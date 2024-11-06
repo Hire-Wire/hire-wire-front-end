@@ -15,6 +15,11 @@ body {
     width: 100%;
     max-width: 2000px;
     margin: 20px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Enables scrolling inside this container */
   }
   
   .application-nav {
@@ -37,7 +42,6 @@ body {
     background-color: #333;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
   }
   
@@ -93,3 +97,24 @@ body {
     background-color: #2563eb;
   }
   
+  .application-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .application-nav button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .application-nav button:hover {
+    background-color: #666;
+  }

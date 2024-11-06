@@ -1,6 +1,7 @@
 // UserProfile.js
 import React, { useState } from 'react';
 import './UserProfile.css';
+import { useHistory } from 'react-router-dom';
 
 function UserProfile() {
   // Default values for the user profile
@@ -63,12 +64,22 @@ function UserProfile() {
     setProfile({ ...profile, education: updatedEducation });
   };
 
+  const history = useHistory();
+
+  const handleApplicationClick = () => {
+    history.push('/application');
+  }
+
+  const handleLogOut = () => {
+    history.push('/landing');
+  }
+
   return (
     <div className="profile-container">
       <nav className="profile-nav">
-        <span>Profile</span>
-        <span>Applications</span>
-        <span>Log Out</span>
+        <button>Profile</button>
+        <button type = "application" onClick = {handleApplicationClick}> Application</button>
+        <button type = "logout" onClick = {handleLogOut}> Log Out</button>
       </nav>
 
       <div className="profile-box">

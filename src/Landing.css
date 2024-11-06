@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('login_images/login_page.png') no-repeat center center fixed;
+    background: url('login_images/login_page.jpg') no-repeat center center fixed;
   }
   
   .landing-container {

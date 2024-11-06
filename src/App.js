@@ -5,14 +5,12 @@ import Landing from './Landing';
 import UserProfile from './UserProfile';
 import Application from './Application';
 import Login from './Login';
-import Navbar from './Navbar';
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/landing">
           <Landing />
         </Route>
         <Route exact path="/login">
