@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/hire-wire-front-end/static/css/main.4d117001.css",
-    "main.js": "/hire-wire-front-end/static/js/main.f1b7ca2c.js",
+    "main.css": "/hire-wire-front-end/static/css/main.078852db.css",
+    "main.js": "/hire-wire-front-end/static/js/main.2fcdedad.js",
     "static/js/453.d8a71a43.chunk.js": "/hire-wire-front-end/static/js/453.d8a71a43.chunk.js",
     "static/media/login_page.png": "/hire-wire-front-end/static/media/login_page.86c6f89e552f77350e53.png",
     "static/media/login_page.jpg": "/hire-wire-front-end/static/media/login_page.e0bb5bb0d11921b4d23a.jpg",
     "index.html": "/hire-wire-front-end/index.html",
-    "main.4d117001.css.map": "/hire-wire-front-end/static/css/main.4d117001.css.map",
-    "main.f1b7ca2c.js.map": "/hire-wire-front-end/static/js/main.f1b7ca2c.js.map",
+    "main.078852db.css.map": "/hire-wire-front-end/static/css/main.078852db.css.map",
+    "main.2fcdedad.js.map": "/hire-wire-front-end/static/js/main.2fcdedad.js.map",
     "453.d8a71a43.chunk.js.map": "/hire-wire-front-end/static/js/453.d8a71a43.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4d117001.css",
-    "static/js/main.f1b7ca2c.js"
+    "static/css/main.078852db.css",
+    "static/js/main.2fcdedad.js"
   ]
 }
