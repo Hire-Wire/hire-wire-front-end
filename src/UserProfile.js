@@ -23,6 +23,7 @@ function UserProfile() {
         schoolName: 'University of Example',
         startDate: '2016-09-01',
         endDate: '2020-06-15',
+        study: 'Computer Science',
         description: 'Bachelor of Science in Computer Science.',
       },
     ],
@@ -105,8 +106,17 @@ function UserProfile() {
               <input type="email" defaultValue={profile.email} />
             </div>
           </div>
+          <div className="input-group">
+            <label>Status</label>
+            <select>
+              <option value="Employed">Employed</option>
+              <option value="Student">Student</option>
+              <option value="Unemployed">Unemployed</option>
+            </select>
+          </div>
 
-          <h2>Experience</h2>
+
+          <h2>Work Experience</h2>
           {profile.experience.map((exp, index) => (
             <div key={index} className="experience-group">
               <div className="input-group">
@@ -157,6 +167,10 @@ function UserProfile() {
                   <input type="date" defaultValue={edu.endDate} />
                 </div>
               </div>
+              <div className="input-group">
+                  <label>Area of Study</label>
+                  <input type="text" defaultValue={edu.study} />
+                </div>
               <div className="input-group">
                 <label>Description</label>
                 <textarea defaultValue={edu.description} />

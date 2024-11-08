@@ -15,11 +15,9 @@ body {
     width: 100%;
     max-width: 2000px;
     margin: 20px auto;
-    padding: 20px;
     background-color: #333;
     border-radius: 10px;
     height: 100vh; /* Full viewport height */
-    overflow-y: auto; /* Enables scrolling inside this container */
   }
   
   .application-nav {
@@ -40,7 +38,7 @@ body {
   
   .application-box {
     background-color: #333;
-    padding: 2rem;
+    padding: 5rem;
     border-radius: 10px;
     text-align: center;
   }
@@ -48,13 +46,6 @@ body {
   .application-box h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-  }
-  
-  .input-row {
-    display: flex;
-    gap: 3rem;
-    justify-content: center;
-    margin-bottom: 0rem;
   }
   
   .input-group {
@@ -70,7 +61,7 @@ body {
     text-align: left;
   }
   
-  .input-group textarea {
+  .additional-info textarea {
     width: 100%;
     padding: 0.75rem;
     border-radius: 5px;
@@ -78,7 +69,57 @@ body {
     background-color: #444;
     color: white;
     resize: none;
-    height: 200px;
+    height: 100px;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-y:scroll;
+  }
+
+  .job-posting-info label {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    color: white;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .job-title-info input {
+    background-color: #444;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    max-width: 400px;
+    width: 100%;
+    text-align: left;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .job-org-info input {
+    background-color: #444;
+    border-radius: 5px;
+    padding: 0.5rem;
+    border: none;
+    max-width: 400px;
+    width: 100%;
+    text-align: left;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .job-desc textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #444;
+    color: white;
+    resize: none;
+    height: 300px;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-y:scroll;
   }
   
   .generate-button {
@@ -91,10 +132,39 @@ body {
     cursor: pointer;
     transition: background 0.3s ease;
     margin-top: 1rem;
+    margin-bottom: 2rem;
   }
   
   .generate-button:hover {
     background-color: #2563eb;
+  }
+
+  .cover-letter textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #444;
+    color: white;
+    resize: none;
+    height: 300px;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-y:scroll;
+  }
+
+  .resume textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #444;
+    color: white;
+    resize: none;
+    height: 300px;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-y:scroll;
   }
   
   .application-nav {

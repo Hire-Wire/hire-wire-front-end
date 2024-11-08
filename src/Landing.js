@@ -12,7 +12,7 @@ function Landing() {
 
   return (
     <div className="landing-container">
-      <h1>Welcome!</h1>
+      <h1>Hire Wire</h1>
       <div className="button-group">
         <button className="login-button" onClick={handleLoginClick}>Log In</button>
         <button className="register-button">Register</button>

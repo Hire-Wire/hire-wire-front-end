@@ -24,17 +24,35 @@ function Application() {
 
       <div className="application-box">
         <h2>Start an Application!</h2>
-        <div className="input-row">
-          <div className="input-group">
-            <label>Write about your experience!</label>
-            <textarea placeholder="Describe your experience here..."></textarea>
+          <div className="additional-info">
+            <label>Additional Information</label>
+            <textarea placeholder="Write additional information about yourself (Optional)"></textarea>
           </div>
-          <div className="input-group">
-            <label>Job Posting information</label>
-            <textarea placeholder="Paste job posting information here..."></textarea>
+          <div className="job-posting-info">
+            <label>Job Posting Information</label>
           </div>
-        </div>
+          <div className="job-title-info">
+            <label>Job Title</label>
+            <input type="text" placeholder="Job title" />
+          </div>
+          <div className="job-org-info">
+            <label>Company / Organization</label>
+            <input type="text" placeholder="Company" />
+          </div>
+          <div className="job-desc">
+            <label>Description</label>
+            <textarea placeholder="Job description / information..."></textarea>
+          </div>
         <button className="generate-button">Generate Resume and Cover Letter</button>
+
+        <div className="cover-letter">
+            <label>Generated Cover Letter</label>
+            <textarea placeholder="Generated cover letter"></textarea>
+        </div>
+        <div className="resume">
+            <label>Generated Resume</label>
+            <textarea placeholder="Generated resume content"></textarea>
+        </div>
       </div>
     </div>
   );
