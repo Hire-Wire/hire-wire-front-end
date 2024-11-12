@@ -11,14 +11,14 @@ body {
     background-size: cover;
   }
   
-  .login-container {
+  .registration-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
   }
   
-  .login-box {
+  .registration-box {
     background-color: #333;
     padding: 1rem;
     border-radius: 25px;
@@ -29,13 +29,13 @@ body {
     text-align: center; /* Center-align text within the box */
   }
   
-  .login-box h1 {
+  .registration-box h1 {
     margin-top: 1rem;
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
   
-  .login-box label {
+  .registration-box label {
     display: block;
     text-align: left; /* Align labels to the left */
     font-size: 0.9rem;
@@ -44,7 +44,7 @@ body {
     margin-bottom: 0.5rem;
   }
   
-  .login-box input {
+  .registration-box input {
     width: 90%; /* Slightly smaller than full width to give padding on the sides */
     padding: 0.75rem;
     border-radius: 10px;
@@ -56,34 +56,29 @@ body {
     display: block; /* Ensure the input is block-level to respond to margin:auto */
   }
   
-  .login-box button {
-    width: 90%;
+  .registration-box button {
+    width: 100%;
     padding: 0.75rem;
-    background-color: #3B82F6;
+    background-color: #3B82F6; /* Blue button color */
     border: none;
     border-radius: 10px;
     font-size: 1rem;
     color: white;
     cursor: pointer;
     transition: background 0.3s ease;
-    margin: 0 auto; /* Center-align the button */
-    display: block;
-  }
-  
-  .login-box button:hover {
-    background-color: #2563EB;
-  }
-  
-  .login-box input::placeholder {
-    color: #666;
-  }
-
-  .back-button {
     margin-top: 1rem;
   }
   
+  .registration-box button:hover {
+    background-color: #2563EB;
+  }
+  
+  .back-button {
+    margin-top: 0rem;
+  }
+  
   .back-button button {
-    width: 90%;
+    width: 100%;
     padding: 0.75rem;
     background-color: #555; /* Darker button color for Back button */
     border: none;
@@ -97,18 +92,3 @@ body {
   .back-button button:hover {
     background-color: #444;
   }
- 
-  .forgot-password {
-    margin-top: 1rem;
-  }
-  
-  .forgot-password a {
-    color: #868686;
-    font-size: 0.9rem;
-    text-decoration: none;
-  }
-  
-  .forgot-password a:hover {
-    text-decoration: underline;
-  }
-

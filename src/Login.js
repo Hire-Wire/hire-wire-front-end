@@ -10,18 +10,25 @@ function Login() {
     history.push('/application'); // Navigate to the Login page
   };
 
+  const handleBackClick = () => {
+    history.push('/');
+  }
+
   return (
     <div className="login-container">
       <div className="login-box">
         <h1>Welcome!</h1>
         <form>
-          <label>Email or Username</label>
-          <input type="text" placeholder="Email or Username" />
+          <label>Email</label>
+          <input type="text" placeholder="Email" />
 
           <label>Password</label>
           <input type="password" placeholder="Password" />
 
           <button type="submit" onClick = {handleLoginClick}>Log In</button>
+          <p className="back-button">
+            <button type="back" onClick = {handleBackClick}>Back</button>
+          </p>
           <p className="forgot-password">
             <a href="/forgot-password">Forgot Password?</a>
           </p>

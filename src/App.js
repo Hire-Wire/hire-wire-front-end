@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Landing from './Landing';
 import UserProfile from './UserProfile';
 import Application from './Application';
+import Registration from './Registration';
 import Login from './Login';
+import Error from './Error';
 
 function App() {
   return (
@@ -21,6 +23,12 @@ function App() {
         </Route>
         <Route exact path="/application">
           <Application />
+        </Route>
+        <Route exact path="/registration">
+          <Registration />
+        </Route>
+        <Route exact path="/error">
+          <Error />
         </Route>
       </Switch>
     </Router>

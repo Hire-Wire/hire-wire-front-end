@@ -12,6 +12,7 @@ function UserProfile() {
     email: 'john.doe@example.com',
     experience: [
       {
+        jobTitle: 'Software Engineer',
         organizationName: 'Company Inc.',
         startDate: '2020-01-01',
         endDate: '2022-12-31',
@@ -24,6 +25,7 @@ function UserProfile() {
         startDate: '2016-09-01',
         endDate: '2020-06-15',
         study: 'Computer Science',
+        grade: '3.0/4.0',
         description: 'Bachelor of Science in Computer Science.',
       },
     ],
@@ -35,7 +37,7 @@ function UserProfile() {
       ...profile,
       experience: [
         ...profile.experience,
-        { organizationName: '', startDate: '', endDate: '', description: '' },
+        { jobTitle: '', organizationName: '', startDate: '', endDate: '', description: '' },
       ],
     });
   };
@@ -53,7 +55,7 @@ function UserProfile() {
       ...profile,
       education: [
         ...profile.education,
-        { schoolName: '', startDate: '', endDate: '', description: '' },
+        { schoolName: '', startDate: '', endDate: '', study:'', grade:'', description: '' },
       ],
     });
   };
@@ -64,6 +66,10 @@ function UserProfile() {
     updatedEducation.splice(index, 1);
     setProfile({ ...profile, education: updatedEducation });
   };
+
+  const handleSaveClick = () => {
+    
+  }
 
   const history = useHistory();
 
@@ -116,10 +122,12 @@ function UserProfile() {
           </div>
 
 
-          <h2>Work Experience</h2>
+          <h2>Employment Experience</h2>
           {profile.experience.map((exp, index) => (
             <div key={index} className="experience-group">
               <div className="input-group">
+                <label>Job Title</label>
+                <input type="text" defaultValue={exp.jobTitle} />
                 <label>Organization Name</label>
                 <input type="text" defaultValue={exp.organizationName} />
               </div>
@@ -168,8 +176,10 @@ function UserProfile() {
                 </div>
               </div>
               <div className="input-group">
-                  <label>Area of Study</label>
+                  <label>Field of Study</label>
                   <input type="text" defaultValue={edu.study} />
+                  <label>Grade</label>
+                  <input type="text" defaultValue={edu.grade} />
                 </div>
               <div className="input-group">
                 <label>Description</label>
@@ -186,6 +196,9 @@ function UserProfile() {
           ))}
           <button type="button" className="add-button" onClick={addEducation}>
             + Add Education
+          </button>
+          <button type="button" className="save-button" onClick={handleSaveClick}>
+            Save Changes
           </button>
         </form>
       </div>

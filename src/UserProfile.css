@@ -130,3 +130,23 @@ body {
 .profile-nav button:hover {
   background-color: #666;
 }
+
+.save-button {
+  margin-top: 2rem;
+  background-color: #3b82f6;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  font-size:large;
+}
+
+.save-button:hover {
+  background-color: #2563eb;
+}

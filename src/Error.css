@@ -1,0 +1,64 @@
+/* Error.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1d1d1d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .error-nav button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .error-nav button:hover {
+    background-color: #666;
+  }
+  
+  .error-container {
+    width: 100%;
+    max-width: 2000px;
+    margin: 20px auto;
+    background-color: #333;
+    border-radius: 10px;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .error-nav {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .error-nav span {
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .error-nav span:hover {
+    color: white;
+  }
+  
+  .error-box {
+    background-color: #333;
+    padding: 5rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .error-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
