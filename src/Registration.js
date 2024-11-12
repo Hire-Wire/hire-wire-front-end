@@ -22,7 +22,7 @@ function Registration() {
           <label>First Name</label>
           <input type="text" placeholder="First Name" />
           <label>Last Name</label>
-          <input type="text" placeholder="First Name" />
+          <input type="text" placeholder="Last Name" />
           <label>Email</label>
           <input type="text" placeholder="Email" />
           <label>Password</label>

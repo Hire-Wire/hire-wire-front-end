@@ -67,7 +67,19 @@ function UserProfile() {
     setProfile({ ...profile, education: updatedEducation });
   };
 
-  const handleSaveClick = () => {
+  const handleSaveUserProfileClick = () => {
+    
+  }
+
+  const handleSaveEmploymentExperienceClick = () => {
+    
+  }
+
+  const handleSaveEducationClick = () => {
+    
+  }
+
+  const handleDeleteProfileClick = () => {
     
   }
 
@@ -120,6 +132,9 @@ function UserProfile() {
               <option value="Unemployed">Unemployed</option>
             </select>
           </div>
+          <button type="button" className="save-button" onClick={handleSaveUserProfileClick}>
+            Save User Profile Changes
+          </button>
 
 
           <h2>Employment Experience</h2>
@@ -156,6 +171,9 @@ function UserProfile() {
           ))}
           <button type="button" className="add-button" onClick={addExperience}>
             + Add Experience
+          </button>
+          <button type="button" className="save-button" onClick={handleSaveEmploymentExperienceClick}>
+            Save Employment Experience Changes
           </button>
 
           <h2>Education</h2>
@@ -197,8 +215,11 @@ function UserProfile() {
           <button type="button" className="add-button" onClick={addEducation}>
             + Add Education
           </button>
-          <button type="button" className="save-button" onClick={handleSaveClick}>
-            Save Changes
+          <button type="button" className="save-button" onClick={handleSaveEducationClick}>
+            Save Education Changes
+          </button>
+          <button type="button" className="delete-user-profile-button" onClick={handleDeleteProfileClick}>
+            Delete User Profile
           </button>
         </form>
       </div>
