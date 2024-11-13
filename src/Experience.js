@@ -125,14 +125,15 @@ function Experience() {
               >
                 - Remove Experience
               </button>
+              <button type="button" className="save-button" onClick={handleSaveEmploymentExperienceClick}>
+              Save Changes
+              </button>
             </div>
           ))}
           <button type="button" className="add-button" onClick={addExperience}>
             + Add Experience
           </button>
-          <button type="button" className="save-button" onClick={handleSaveEmploymentExperienceClick}>
-            Save Employment Experience Changes
-          </button>
+
 
           <h2>Education</h2>
           {experience.education.map((edu, index) => (
@@ -168,14 +169,15 @@ function Experience() {
               >
                 - Remove Education
               </button>
+              <button type="button" className="save-button" onClick={handleSaveEducationClick}>
+              Save Changes
+              </button>
             </div>
           ))}
           <button type="button" className="add-button" onClick={addEducation}>
             + Add Education
           </button>
-          <button type="button" className="save-button" onClick={handleSaveEducationClick}>
-            Save Education Changes
-          </button>
+          
         </form>
       </div>
     </div>
