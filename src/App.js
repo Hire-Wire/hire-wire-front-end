@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Landing from './Landing';
 import UserProfile from './UserProfile';
+import Experience from './Experience';
 import Application from './Application';
 import Registration from './Registration';
 import Login from './Login';
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route exact path="/userprofile">
           <UserProfile />
+        </Route>
+        <Route exact path="/experience">
+          <Experience />
         </Route>
         <Route exact path="/application">
           <Application />

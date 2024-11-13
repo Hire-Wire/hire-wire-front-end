@@ -7,7 +7,11 @@ function Application() {
   const history = useHistory();
 
   const handleProfileClick = () => {
-    history.push('/userprofile'); // Navigate to the Login page
+    history.push('/userprofile');
+  };
+
+  const handleExperienceClick = () => {
+    history.push('/experience');
   };
 
   const handleLogOut = () => {
@@ -18,6 +22,7 @@ function Application() {
     <div className="application-container">
       <nav className="application-nav">
         <button type = "profile" onClick = {handleProfileClick}> Profile  </button>
+        <button type = "experience" onClick = {handleExperienceClick}> Experience</button>
         <button>Application</button>
         <button type = "logout" onClick = {handleLogOut}>Log Out</button>
       </nav>
