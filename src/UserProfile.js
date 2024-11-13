@@ -7,7 +7,7 @@ import axios from 'axios';
 function UserProfile() {
   const history = useHistory();
 
-  // Retrieve user ID and token (Assuming you have user info stored)
+  // Retrieve user email and token from localStorage
   const email = localStorage.getItem('email');
   const token = localStorage.getItem('token');  
 
@@ -24,16 +24,19 @@ function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // Backend base URL
+  const BACKEND_URL = 'http://localhost:8000'; // Update if your backend runs on a different port
+
   // Fetch user profile on component mount
   useEffect(() => {
-    if (!token) {
-      // If no token, redirect to login
+    if (!token || !email) {
+      // If no token or email, redirect to login
       history.push('/login');
       return;
     }
 
     axios
-      .get(`/api/v1/users/${email}`, {
+      .get(`${BACKEND_URL}/api/v1/users/email/${email}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,7 +58,7 @@ function UserProfile() {
         setError('Failed to load user profile.');
         setLoading(false);
       });
-  }, [email, token, history]);
+  }, [email, token, history, BACKEND_URL]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -70,7 +73,7 @@ function UserProfile() {
   const handleSaveUserProfileClick = () => {
     setLoading(true);
     axios
-      .put(`/api/v1/users/${email}`, profile, {
+      .put(`${BACKEND_URL}/api/v1/users/email/${email}`, profile, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -90,6 +93,7 @@ function UserProfile() {
         setLoading(false);
       });
   };
+
   // Handle deleting the user profile
   const handleDeleteProfileClick = () => {
     const confirmDelete = window.confirm(
@@ -99,7 +103,7 @@ function UserProfile() {
 
     setLoading(true);
     axios
-      .delete(`/api/v1/users/${email}`, {
+      .delete(`${BACKEND_URL}/api/v1/users/email/${email}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -108,7 +112,7 @@ function UserProfile() {
         alert('Profile deleted successfully.');
         // Clear localStorage and redirect to home or signup
         localStorage.removeItem('token');
-        localStorage.removeItem('email'); // Adjust based on your implementation
+        localStorage.removeItem('email');
         history.push('/signup'); // Redirect to signup or another appropriate page
       })
       .catch((err) => {
@@ -118,7 +122,6 @@ function UserProfile() {
         setLoading(false);
       });
   };
-
 
   const handleApplicationClick = () => {
     history.push('/application');
@@ -139,9 +142,9 @@ function UserProfile() {
     <div className="profile-container">
       <nav className="profile-nav">
         <button>Profile</button>
-        <button type = "experience" onClick = {handleExperienceClick}> Experience</button>
-        <button type = "application" onClick = {handleApplicationClick}> Application</button>
-        <button type = "logout" onClick = {handleLogOut}> Log Out</button>
+        <button type="button" onClick={handleExperienceClick}>Experience</button>
+        <button type="button" onClick={handleApplicationClick}>Application</button>
+        <button type="button" onClick={handleLogOut}>Log Out</button>
       </nav>
 
       <div className="profile-box">
@@ -150,26 +153,50 @@ function UserProfile() {
           <div className="input-row">
             <div className="input-group">
               <label>First Name</label>
-              <input type="text" defaultValue={profile.firstName} />
+              <input
+                type="text"
+                name="firstName"
+                value={profile.firstName}
+                onChange={handleChange}
+              />
             </div>
             <div className="input-group">
               <label>Last Name</label>
-              <input type="text" defaultValue={profile.lastName} />
+              <input
+                type="text"
+                name="lastName"
+                value={profile.lastName}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="input-row">
             <div className="input-group">
               <label>Phone Number</label>
-              <input type="text" defaultValue={profile.phoneNumber} />
+              <input
+                type="text"
+                name="phoneNumber"
+                value={profile.phoneNumber}
+                onChange={handleChange}
+              />
             </div>
             <div className="input-group">
               <label>Email Address</label>
-              <input type="email" defaultValue={profile.email} />
+              <input
+                type="email"
+                name="email"
+                value={profile.email}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="input-group">
             <label>Status</label>
-            <select>
+            <select
+              name="status"
+              value={profile.status}
+              onChange={handleChange}
+            >
               <option value="Employed">Employed</option>
               <option value="Student">Student</option>
               <option value="Unemployed">Unemployed</option>
@@ -182,6 +209,8 @@ function UserProfile() {
             Delete User Profile
           </button>
         </form>
+        {loading && <p>Loading...</p>}
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   );

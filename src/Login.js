@@ -12,6 +12,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // To display login errors
 
+  // Backend base URL
+  const BACKEND_URL = 'http://localhost:8000'; // Update if your backend runs on a different port
+
   const handleLoginClick = async (e) => {
     e.preventDefault();
 
@@ -20,14 +23,14 @@ function Login() {
       const data = { email, password };
 
       // Make the login request to backend
-      const response = await axios.post("http://localhost:8000/api/v1/users/login", data);
+      const response = await axios.post(`${BACKEND_URL}/api/v1/users/login`, data);
 
       if (response.status === 200) { // Successful login
         const token = response.data.token; // Retrieve token from response
         localStorage.setItem('token', token); // Store token in localStorage
-        localStorage.setItem('email', email); //Store email in localStorage
+        localStorage.setItem('email', email); // Store email in localStorage
         console.log("Token stored successfully:", token);
-        console.log("email stored successfully:", email);
+        console.log("Email stored successfully:", email);
 
         history.push('/application'); // Redirect to application page
       }
