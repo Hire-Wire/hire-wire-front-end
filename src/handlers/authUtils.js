@@ -19,6 +19,7 @@ export const handleLogOut = async (history) => {
 
         // Clear token and redirect
         localStorage.removeItem('token');
+        localStorage.removeItem('userID');
         history.replace('/');
     } catch (error) {
         console.error("Logout error:", error);
@@ -42,9 +43,9 @@ export const handleLoginClick = async (e, email, password, setError, history) =>
         if (response.status === 200) { // Successful login
             const { token, userData } = response.data; // Retrieve token and userID from response
             localStorage.setItem('token', token); // Store token in localStorage
-            localStorage.setItem('userID', userData.id); // Optionally store userID if needed elsewhere
+            localStorage.setItem('userId', userData.id); // Optionally store userID if needed elsewhere
             console.log("Token stored successfully:", token);
-            console.log("User ID:", userData.id); // Log userID to console
+            console.log("userId:", userData.id); // Log userID to console
 
             history.push(PATHS.JOB_APPLICATION); // Redirect to application page using path from config
         }

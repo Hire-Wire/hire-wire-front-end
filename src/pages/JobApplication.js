@@ -88,7 +88,7 @@ function JobApplication() {
                     <label>Job Title</label>
                     <input
                         type="text"
-                        placeholder="Job title"
+                        placeholder="Job title (required)"
                         value={jobTitle}
                         onChange={(e) => setJobTitle(e.target.value)}
                     />
@@ -97,7 +97,7 @@ function JobApplication() {
                     <label>Company / Organization</label>
                     <input
                         type="text"
-                        placeholder="Company"
+                        placeholder="Company (required)"
                         value={jobCompany}
                         onChange={(e) => setJobCompany(e.target.value)}
                     />
@@ -105,7 +105,7 @@ function JobApplication() {
                 <div className="job-desc">
                     <label>Description</label>
                     <textarea
-                        placeholder="Job description / information..."
+                        placeholder="Job description / information... (required)"
                         value={jobDescriptionBody}
                         onChange={(e) => setJobDescriptionBody(e.target.value)}
                     ></textarea>
@@ -123,7 +123,7 @@ function JobApplication() {
                     onClick={handleGenerateContent}
                     disabled={loading}
                 >
-                    {loading ? "Generating..." : "Generate Resume and Cover Letter"}
+                    {loading ? "Generating..." : "Generate"}
                 </button>
 
                 {error && <p className="error-message">{error}</p>}

@@ -50,11 +50,11 @@ function Registration() {
 
       if (response.status === 201) {
         console.log(response.data.message); // Success message
-        const { token, userID } = response.data; // Retrieve token and userID from response
+        const { token, userData } = response.data; // Retrieve token and userID from response
         localStorage.setItem('token', token); // Store token in localStorage
-        localStorage.setItem('userID', userID); // Store userID in localStorage
+        localStorage.setItem('userId', userData.id); // Store userID in localStorage
         console.log("Token stored successfully:", token);
-        console.log("User ID stored successfully:", userID);
+        console.log("userId stored successfully:", userData.id);
 
         handleProfileClick(history); // Use navigation handler to redirect to the profile page
       }
