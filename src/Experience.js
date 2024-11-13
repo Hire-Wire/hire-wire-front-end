@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './Experience.css';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function Experience() {
   const [experience, setExperience] = useState({
@@ -11,7 +12,7 @@ function Experience() {
         organizationName: 'Company Inc.',
         startDate: '2020-01-01',
         endDate: '2022-12-31',
-        description: 'Worked as a software engineer handling front-end tasks.',
+        jobDescription: 'Worked as a software engineer handling front-end tasks.',
       },
     ],
     education: [
@@ -19,9 +20,9 @@ function Experience() {
         schoolName: 'University of Example',
         startDate: '2016-09-01',
         endDate: '2020-06-15',
-        study: 'Computer Science',
+        fieldOfStudy: 'Computer Science',
         grade: '3.0/4.0',
-        description: 'Bachelor of Science in Computer Science.',
+        degree: 'Bachelor of Science in Computer Science.',
       },
     ],
   });
@@ -32,7 +33,7 @@ function Experience() {
       ...experience,
       exp: [
         ...experience.exp,
-        { jobTitle: '', organizationName: '', startDate: '', endDate: '', description: '' },
+        { jobTitle: '', organizationName: '', startDate: '', endDate: '', jobDescription: '' },
       ],
     });
   };
@@ -50,7 +51,7 @@ function Experience() {
       ...experience,
       education: [
         ...experience.education,
-        { schoolName: '', startDate: '', endDate: '', study:'', grade:'', description: '' },
+        { schoolName: '', startDate: '', endDate: '', fieldOfStudy:'', grade:'', degree: '' },
       ],
     });
   };
@@ -62,9 +63,50 @@ function Experience() {
     setExperience({ ...experience, education: updatedEducation });
   };
 
-  const handleSaveEmploymentExperienceClick = () => {
-    
+    // Handle the input changes for both experience and education
+  const handleInputChange = (e, index, type, field) => {
+    const updatedExperience = [...experience[type]];
+    updatedExperience[index][field] = e.target.value;
+    setExperience({
+      ...experience,
+      [type]: updatedExperience,
+    });
+  };
+
+  const handleSaveEmploymentExperienceClick = async (index) => {
+    const expData = experience.exp[index];
+    // Prepare the data to be sent to the backend
+    const data = {
+      "experienceType": 'Employment', 
+      "organizationName": expData.organizationName, 
+      "employment": {
+        "jobTitle": expData.jobTitle,
+        "jobDescription": expData.jobDescription,
+        "startDate": expData.startDate, 
+        "endDate": expData.endDate, 
+      }
+    }; 
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Include auth token if necessary
+            withCredentials: true // include credentials in the request
+        }
+      });
+
+    if (response.data.success) {
+      // Display a success message or handle the response
+      console.log('Experience saved successfully');
+    } else {
+      // Handle backend validation errors
+      console.error('Failed to save experience', response.data.errors);
+    }
+  } catch (error) {
+    console.error('Error saving experience:', error.message);
   }
+    
+  }; 
 
   const handleSaveEducationClick = () => {
     
@@ -100,23 +142,34 @@ function Experience() {
             <div key={index} className="experience-group">
               <div className="input-group">
                 <label>Job Title</label>
-                <input type="text" defaultValue={exp.jobTitle} />
+                <input type="text" 
+                value={exp.jobTitle}
+                onChange={(e) => handleInputChange(e, index, 'exp', 'jobTitle')}
+                />
                 <label>Organization Name</label>
-                <input type="text" defaultValue={exp.organizationName} />
+                <input type="text" 
+                value={exp.organizationName}
+                onChange={(e) => handleInputChange(e, index, 'exp', 'organizationName')} />
               </div>
               <div className="input-row">
                 <div className="input-group">
                   <label>Start Date</label>
-                  <input type="date" defaultValue={exp.startDate} />
+                  <input type="date" 
+                  value={exp.startDate} 
+                  onChange={(e) => handleInputChange(e, index, 'exp', 'startDate')}/>
                 </div>
                 <div className="input-group">
                   <label>End Date</label>
-                  <input type="date" defaultValue={exp.endDate} />
+                  <input type="date" 
+                  value={exp.endDate} 
+                  onChange={(e) => handleInputChange(e, index, 'exp', 'endDate')}/>
                 </div>
               </div>
               <div className="input-group">
                 <label>Description</label>
-                <textarea defaultValue={exp.description} />
+                <textarea 
+                value={exp.jobDescription} 
+                onChange={(e) => handleInputChange(e, index, 'exp', 'jobDescription')}/>
               </div>
               <button
                 type="button"
@@ -125,7 +178,9 @@ function Experience() {
               >
                 - Remove Experience
               </button>
-              <button type="button" className="save-button" onClick={handleSaveEmploymentExperienceClick}>
+              <button type="button" 
+              className="save-button" 
+              onClick={ () => handleSaveEmploymentExperienceClick(index)}>
               Save Changes
               </button>
             </div>
@@ -140,27 +195,40 @@ function Experience() {
             <div key={index} className="education-group">
               <div className="input-group">
                 <label>School Name</label>
-                <input type="text" defaultValue={edu.schoolName} />
+                <input type="text" 
+                value={edu.schoolName} 
+                onChange={(e) => handleInputChange(e, index, 'education', 'schoolName')}/>
               </div>
               <div className="input-row">
                 <div className="input-group">
                   <label>Start Date</label>
-                  <input type="date" defaultValue={edu.startDate} />
+                  <input type="date" 
+                  value={edu.startDate} 
+                  onChange={(e) => handleInputChange(e, index, 'education', 'startDate')}/>
                 </div>
                 <div className="input-group">
                   <label>End Date</label>
-                  <input type="date" defaultValue={edu.endDate} />
+                  <input type="date" 
+                  value={edu.endDate} 
+                  onChange={(e) => handleInputChange(e, index, 'education', 'endDate')}/>
                 </div>
               </div>
               <div className="input-group">
                   <label>Field of Study</label>
-                  <input type="text" defaultValue={edu.study} />
+                  <input type="text" 
+                  value={edu.fieldOfStudy} 
+                  onChange={(e) => handleInputChange(e, index, 'education', 'fieldOfStudy')}/>
                   <label>Grade</label>
-                  <input type="text" defaultValue={edu.grade} />
+                  <input type="text" 
+                  value={edu.grade} 
+                  onChange={(e) => handleInputChange(e, index, 'education', 'grade')}/>
                 </div>
               <div className="input-group">
-                <label>Description</label>
-                <textarea defaultValue={edu.description} />
+                <label>Degree</label>
+                <input
+                type="text"
+                value={edu.degree} 
+                onChange={(e) => handleInputChange(e, index, 'education', 'degree')}/>
               </div>
               <button
                 type="button"
