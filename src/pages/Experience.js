@@ -1,6 +1,6 @@
 // Experience.js
 import React, { useState } from 'react';
-import './Experience.css';
+import '../templates/Experience.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { handleLogOut } from "../handlers/logoutHandler"; // Import the logout function
