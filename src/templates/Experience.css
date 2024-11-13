@@ -132,10 +132,10 @@ body {
 }
 
 .save-button {
-  margin-top: 2rem;
-  background-color: #3b82f6;
+  margin-top: 1rem;
+  background-color: #666666;
   color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -144,11 +144,11 @@ body {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  font-size:large;
+  font-size:medium;
 }
 
 .save-button:hover {
-  background-color: #2563eb;
+  background-color: #3a3a3a;
 }
 
 .delete-user-profile-button {
