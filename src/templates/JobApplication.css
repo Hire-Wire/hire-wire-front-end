@@ -1,0 +1,164 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1d1d1d;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.application-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #333;
+  border-radius: 10px;
+  overflow-y: auto;
+  height: 90vh; /* Adjusted height to avoid cutoff */
+}
+
+.application-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.application-nav button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.application-nav button:hover {
+  background-color: #666;
+}
+
+.application-box {
+  background-color: #333;
+  padding: 3rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.application-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  flex: 1;
+  max-width: 300px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 0.3rem;
+  text-align: left;
+}
+
+/* Styling for text areas */
+.additional-info textarea,
+.job-desc textarea,
+.generated-content textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #444;
+  color: white;
+  resize: none;
+  overflow-y: scroll;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.additional-info textarea {
+  height: 100px;
+}
+
+.job-desc textarea,
+.generated-content textarea {
+  height: 300px;
+}
+
+.job-posting-info label {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.job-title-info input,
+.job-org-info input {
+  background-color: #444;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.job-title-info input::placeholder,
+.job-org-info input::placeholder {
+  color: #aaa;
+}
+
+.generate-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.generate-button:hover {
+  background-color: #2563eb;
+}
+
+/* Styles for generated content sections */
+.generated-content label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+}
+
+/* Copy button styling */
+.copy-button {
+  margin-left: 10px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  color: #333;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+  background-color: #d1d1d1;
+}

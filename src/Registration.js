@@ -1,8 +1,10 @@
 // Registration.js
-import React, { useState } from 'react';
-import './Registration.css';
+import React, { useEffect, useState } from 'react';
+import '../templates/Registration.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { handleBackClick, handleProfileClick } from "../handlers/navigationHandlers";
+import { redirectIfNotAuthenticated } from "../handlers/authUtils";
 
 function Registration() {
   const history = useHistory();
@@ -35,29 +37,31 @@ function Registration() {
       // Data to send to the backend
       const data = { firstName, lastName, email, password, phoneNumber };
 
-      // Log the request data
       console.log("Request data:", data);
 
       // Make the registration request to backend
-      const response = await axios.post("http://localhost:8000/api/v1/users/register", data);
+      const response = await axios.post(
+          "http://localhost:8000/api/v1/users/register",
+          data,
+          {
+            withCredentials: true // Include credentials in the request
+          }
+      );
 
       if (response.status === 201) {
         console.log(response.data.message); // Success message
-        const token = response.data.token; // Retrieve token from response
+        const { token, userData } = response.data; // Retrieve token and userID from response
         localStorage.setItem('token', token); // Store token in localStorage
+        localStorage.setItem('userId', userData.id); // Store userID in localStorage
         console.log("Token stored successfully:", token);
+        console.log("userId stored successfully:", userData.id);
 
-        history.push('/userprofile'); // Redirect to user profile page after successful registration
+        handleProfileClick(history); // Use navigation handler to redirect to the profile page
       }
     } catch (error) {
       console.error("Registration error:", error.response ? error.response.data.message : error.message);
-      // Set the error message to inform the user registration was unsuccessful
       setError(error.response ? error.response.data.message : "Registration failed. Please try again.");
     }
-  };
-
-  const handleBackClick = () => {
-    history.push('/');
   };
 
   return (
@@ -107,11 +111,10 @@ function Registration() {
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
             />
-            {/* Display error message if there’s an error */}
             {error && <p className="error-message">{error}</p>}
             <button type="submit">Register</button>
             <p className="back-button">
-              <button type="button" onClick={handleBackClick}>Back</button>
+              <button type="button" onClick={() => handleBackClick(history)}>Back</button> {/* Use handleBackClick */}
             </p>
           </form>
         </div>

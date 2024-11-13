@@ -1,8 +1,10 @@
 // Login.js
-import React, { useState } from 'react';
-import './Login.css';
+import React, { useState, useEffect } from 'react';
+import '../templates/Login.css';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { handleLoginClick } from "../handlers/authUtils"; // Import the login handler
+import { handleBackClick } from "../handlers/navigationHandlers"; // Import the navigation handler
+import { PATHS } from '../config/pageConfig'; // Import PATHS
 
 function Login() {
   const history = useHistory();
@@ -12,43 +14,29 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // To display login errors
 
-  // Backend base URL
-  const BACKEND_URL = 'http://localhost:8000'; // Update if your backend runs on a different port
-
-  const handleLoginClick = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Data to send to the backend
-      const data = { email, password };
-
-      // Make the login request to backend
-      const response = await axios.post(`${BACKEND_URL}/api/v1/users/login`, data);
-
-      if (response.status === 200) { // Successful login
-        const token = response.data.token; // Retrieve token from response
-        localStorage.setItem('token', token); // Store token in localStorage
-        localStorage.setItem('email', email); // Store email in localStorage
-        console.log("Token stored successfully:", token);
-        console.log("Email stored successfully:", email);
-
-        history.push('/application'); // Redirect to application page
-      }
-    } catch (error) {
-      console.error("Login error:", error.response ? error.response.data.message : error.message);
-      setError(error.response ? error.response.data.message : "Login failed. Please try again.");
+  // Redirect to /jobapplication if the user is already authenticated
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      console.log("User is already authenticated, redirecting to Job Application page.");
+      history.replace(PATHS.JOB_APPLICATION); // Redirect to job application page using path from config
     }
-  };
+  }, [history]);
 
-  const handleBackClick = () => {
-    history.push('/');
-  }
+  // Logging the response data from the frontend before login
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitting login form with the following data:");
+    console.log("Email:", email);
+    console.log("Password:", password); // Be cautious with logging passwords in production
+    handleLoginClick(e, email, password, setError, history);
+  };
 
   return (
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome!</h1>
-          <form onSubmit={handleLoginClick}>
+          <form onSubmit={handleSubmit}>
             <label>Email</label>
             <input
                 type="text"
@@ -69,10 +57,10 @@ function Login() {
 
             <button type="submit">Log In</button>
             <p className="back-button">
-              <button type="button" onClick={handleBackClick}>Back</button>
+              <button type="button" onClick={() => handleBackClick(history)}>Back</button>
             </p>
             <p className="forgot-password">
-              <a href="/forgot-password">Forgot Password?</a>
+              <a href={PATHS.FORGOT_PASSWORD}>Forgot Password?</a> {/* Use PATHS for forgot password link */}
             </p>
           </form>
         </div>

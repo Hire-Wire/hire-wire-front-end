@@ -1,5 +1,3 @@
-/* UserProfile.css */
-
 body {
   margin: 0;
   padding: 0;
@@ -16,7 +14,7 @@ body {
   background-color: #333;
   border-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-  height: 100vh; /* Allows content to grow beyond viewport height */
+  height: 100vh;
 }
 
 .profile-box {
@@ -53,9 +51,11 @@ body {
   margin-bottom: 0.3rem;
 }
 
-.input-group input,
-.input-group textarea {
-  width: 100%;
+/* Adjusted input fields to be slightly shorter */
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="tel"] {
+  max-width: 80%; /* Limits the width to 80% of the container */
   padding: 0.75rem;
   border-radius: 5px;
   border: none;
@@ -63,9 +63,16 @@ body {
   color: white;
 }
 
+/* Optional: Adjust textarea and select widths similarly, if desired */
 .input-group textarea {
-  height: 100px;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #444;
+  color: white;
   resize: none;
+  height: 100px;
 }
 
 .input-group select {
@@ -132,23 +139,20 @@ body {
 }
 
 .save-button {
-  margin-top: 2rem;
-  background-color: #3b82f6;
+  background-color: #3b82f6; /* Matches the generate-button color */
   color: white;
-  padding: 1rem;
+  padding: 0.75rem 1.5rem; /* Matches padding for consistency */
   border: none;
-  border-radius: 5px;
+  border-radius: 10px; /* Matches border-radius */
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
-  display: block;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  font-size:large;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .save-button:hover {
-  background-color: #2563eb;
+  background-color: #2563eb; /* Matches the hover color of generate-button */
 }
 
 .delete-user-profile-button {
