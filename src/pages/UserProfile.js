@@ -33,6 +33,7 @@ function UserProfile() {
         const token = localStorage.getItem('token');
         const response = await axios.get(`http://localhost:8000/api/v1/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
 
         // Use empty strings if any of the fields are null or undefined
