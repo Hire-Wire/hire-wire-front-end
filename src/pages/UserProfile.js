@@ -1,13 +1,22 @@
 // UserProfile.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../templates/UserProfile.css';
 import { useHistory } from 'react-router-dom';
 import { handleSaveUserProfileClick, handleDeleteProfileClick} from "../handlers/userProfileHandlers";
 import { handleJobApplicationClick, handleExperienceClick } from "../handlers/navigationHandlers";
-import { handleLogOut } from "../handlers/logoutHandler";
+import {handleLogOut, redirectIfNotAuthenticated} from "../handlers/authUtils";
 
 
 function UserProfile() {
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(true); // Initialize loading state
+
+
+  useEffect(() => {
+    redirectIfNotAuthenticated(history, setLoading);
+  }, [history]);
+
   // Default values for the user profile
   const [profile, setProfile] = useState({
     firstName: 'John',
@@ -15,8 +24,6 @@ function UserProfile() {
     phoneNumber: '123-456-7890',
     email: 'john.doe@example.com'
   });
-
-  const history = useHistory();
 
   return (
       <div className="profile-container">

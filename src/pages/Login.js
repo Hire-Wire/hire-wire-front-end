@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import '../templates/Login.css';
 import { useHistory } from 'react-router-dom';
-import { handleLoginClick } from "../handlers/loginHandler"; // Import the login handler
+import { handleLoginClick } from "../handlers/authUtils"; // Import the login handler
 import { handleBackClick } from "../handlers/navigationHandlers"; // Import the navigation handler
 import { PATHS } from '../config/pageConfig'; // Import PATHS
 
@@ -18,15 +18,25 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      console.log("User is already authenticated, redirecting to Job Application page.");
       history.replace(PATHS.JOB_APPLICATION); // Redirect to job application page using path from config
     }
   }, [history]);
+
+  // Logging the response data from the frontend before login
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitting login form with the following data:");
+    console.log("Email:", email);
+    console.log("Password:", password); // Be cautious with logging passwords in production
+    handleLoginClick(e, email, password, setError, history);
+  };
 
   return (
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome!</h1>
-          <form onSubmit={(e) => handleLoginClick(e, email, password, setError, history)}>
+          <form onSubmit={handleSubmit}>
             <label>Email</label>
             <input
                 type="text"
