@@ -1,4 +1,4 @@
-/* Application.css */
+/* JobApplication.css */
 
 body {
     font-family: Arial, sans-serif;
@@ -10,7 +10,7 @@ body {
     height: 100vh;
     margin: 0;
   }
-  
+
   .application-container {
     width: 100%;
     max-width: 2000px;
@@ -19,40 +19,40 @@ body {
     border-radius: 10px;
     height: 100vh; /* Full viewport height */
   }
-  
+
   .application-nav {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
     font-size: 1.2rem;
   }
-  
+
   .application-nav span {
     cursor: pointer;
     color: #ccc;
   }
-  
+
   .application-nav span:hover {
     color: white;
   }
-  
+
   .application-box {
     background-color: #333;
     padding: 5rem;
     border-radius: 10px;
     text-align: center;
   }
-  
+
   .application-box h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .input-group {
     flex: 1;
     max-width: 300px;
   }
-  
+
   .input-group label {
     display: block;
     font-size: 0.9rem;
@@ -60,7 +60,7 @@ body {
     margin-bottom: 0.3rem;
     text-align: left;
   }
-  
+
   .additional-info textarea {
     width: 100%;
     padding: 0.75rem;
@@ -121,7 +121,7 @@ body {
     margin-bottom: 1rem;
     overflow-y:scroll;
   }
-  
+
   .generate-button {
     background-color: #3b82f6;
     color: white;
@@ -134,7 +134,7 @@ body {
     margin-top: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .generate-button:hover {
     background-color: #2563eb;
   }
@@ -166,14 +166,14 @@ body {
     margin-bottom: 1rem;
     overflow-y:scroll;
   }
-  
+
   .application-nav {
     display: flex;
     gap: 1rem;
     justify-content: center;
     margin-bottom: 20px;
   }
-  
+
   .application-nav button {
     background-color: #333;
     color: white;
@@ -184,7 +184,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
+
   .application-nav button:hover {
     background-color: #666;
   }
