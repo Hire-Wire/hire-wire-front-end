@@ -2,7 +2,7 @@
 import React from 'react';
 import '../templates/Error.css';
 import { useHistory } from 'react-router-dom';
-import { handleLogOut } from "../handlers/logoutHandler";
+import { handleLogOut } from "../handlers/authUtils";
 import { handleProfileClick, handleJobApplicationClick } from "../handlers/navigationHandlers";
 
 function Error() {
