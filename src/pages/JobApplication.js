@@ -27,10 +27,10 @@ function JobApplication() {
     const [generatedResume, setGeneratedResume] = useState("");
     const [generatedCoverLetter, setGeneratedCoverLetter] = useState("");
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Initialize loading state
 
     useEffect(() => {
-        redirectIfNotAuthenticated(history);
+        redirectIfNotAuthenticated(history, setLoading);
     }, [history]);
 
     const handleGenerateContent = async () => {

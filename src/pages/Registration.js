@@ -1,18 +1,13 @@
 // Registration.js
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../templates/Registration.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { handleBackClick, handleProfileClick } from "../handlers/navigationHandlers";
-import {redirectIfNotAuthenticated} from "../handlers/authUtils";
+import { redirectIfNotAuthenticated } from "../handlers/authUtils";
 
 function Registration() {
   const history = useHistory();
-
-  useEffect(() => {
-    redirectIfNotAuthenticated(history);
-  }, [history]);
-
 
   // State for each input field
   const [firstName, setFirstName] = useState("");
@@ -55,9 +50,11 @@ function Registration() {
 
       if (response.status === 201) {
         console.log(response.data.message); // Success message
-        const token = response.data.token; // Retrieve token from response
+        const { token, userID } = response.data; // Retrieve token and userID from response
         localStorage.setItem('token', token); // Store token in localStorage
+        localStorage.setItem('userID', userID); // Store userID in localStorage
         console.log("Token stored successfully:", token);
+        console.log("User ID stored successfully:", userID);
 
         handleProfileClick(history); // Use navigation handler to redirect to the profile page
       }

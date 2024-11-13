@@ -8,9 +8,13 @@ import {handleLogOut, redirectIfNotAuthenticated} from "../handlers/authUtils";
 
 
 function UserProfile() {
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(true); // Initialize loading state
+
 
   useEffect(() => {
-    redirectIfNotAuthenticated(history);
+    redirectIfNotAuthenticated(history, setLoading);
   }, [history]);
 
   // Default values for the user profile
@@ -20,8 +24,6 @@ function UserProfile() {
     phoneNumber: '123-456-7890',
     email: 'john.doe@example.com'
   });
-
-  const history = useHistory();
 
   return (
       <div className="profile-container">
