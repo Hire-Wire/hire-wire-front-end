@@ -17,7 +17,7 @@ function Experience() {
     ],
     education: [
       {
-        schoolName: 'University of Example',
+        organizationName: 'University of Example',
         startDate: '2016-09-01',
         endDate: '2020-06-15',
         fieldOfStudy: 'Computer Science',
@@ -51,7 +51,7 @@ function Experience() {
       ...experience,
       education: [
         ...experience.education,
-        { schoolName: '', startDate: '', endDate: '', fieldOfStudy:'', grade:'', degree: '' },
+        { organizationName: '', startDate: '', endDate: '', fieldOfStudy:'', grade:'', degree: '' },
       ],
     });
   };
@@ -108,9 +108,42 @@ function Experience() {
     
   }; 
 
-  const handleSaveEducationClick = () => {
-    
+  const handleSaveEducationClick = async (index) => {
+    const eduData = experience.education[index];
+    // Prepare the data to be sent to the backend
+    const data = {
+      "experienceType": 'Education', 
+      "organizationName": eduData.organizationName, 
+      "education": {
+        "degree": eduData.degree,
+        "fieldOfStudy": eduData.fieldOfStudy,
+        "grade": eduData.grade,
+        "startDate": eduData.startDate, 
+        "endDate": eduData.endDate, 
+      }
+    }; 
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Include auth token if necessary
+            withCredentials: true // include credentials in the request
+        }
+      });
+
+    if (response.data.success) {
+      // Display a success message or handle the response
+      console.log('Experience saved successfully');
+    } else {
+      // Handle backend validation errors
+      console.error('Failed to save experience', response.data.errors);
+    }
+  } catch (error) {
+    console.error('Error saving experience:', error.message);
   }
+    
+    
+  };
 
   const history = useHistory();
 
@@ -194,10 +227,10 @@ function Experience() {
           {experience.education.map((edu, index) => (
             <div key={index} className="education-group">
               <div className="input-group">
-                <label>School Name</label>
+                <label>Organization Name</label>
                 <input type="text" 
-                value={edu.schoolName} 
-                onChange={(e) => handleInputChange(e, index, 'education', 'schoolName')}/>
+                value={edu.organizationName} 
+                onChange={(e) => handleInputChange(e, index, 'education', 'organizationName')}/>
               </div>
               <div className="input-row">
                 <div className="input-group">
@@ -237,7 +270,9 @@ function Experience() {
               >
                 - Remove Education
               </button>
-              <button type="button" className="save-button" onClick={handleSaveEducationClick}>
+              <button type="button" 
+              className="save-button"  
+              onClick={ () => handleSaveEducationClick(index)}>
               Save Changes
               </button>
             </div>
