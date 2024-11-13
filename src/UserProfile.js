@@ -25,7 +25,7 @@ function UserProfile() {
   const [error, setError] = useState('');
 
   // Backend base URL
-  const BACKEND_URL = 'http://localhost:8000'; // Update if your backend runs on a different port
+  const BACKEND_URL = 'http://localhost:8000';
 
   // Fetch user profile on component mount
   useEffect(() => {
