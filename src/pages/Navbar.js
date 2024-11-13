@@ -1,7 +1,7 @@
 // Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import '../templates/Navbar.css';
 
 
 function Navbar() {
@@ -18,7 +18,7 @@ function Navbar() {
           <Link to="/userprofile">User Profile</Link>
         </li>
         <li>
-          <Link to="/application">Home</Link>
+          <Link to="/jobapplication">Home</Link>
         </li>
       </ul>
     </nav>

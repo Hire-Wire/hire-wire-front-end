@@ -1,8 +1,10 @@
 // Login.js
-import React, { useState } from 'react';
-import './Login.css';
+import React, { useState, useEffect } from 'react';
+import '../templates/Login.css';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { handleLoginClick } from "../handlers/loginHandler"; // Import the login handler
+import { handleBackClick } from "../handlers/navigationHandlers"; // Import the navigation handler
+import { PATHS } from '../config/pageConfig'; // Import PATHS
 
 function Login() {
   const history = useHistory();
@@ -12,38 +14,19 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // To display login errors
 
-  const handleLoginClick = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Data to send to the backend
-      const data = { email, password };
-
-      // Make the login request to backend
-      const response = await axios.post("http://localhost:8000/api/v1/users/login", data);
-
-      if (response.status === 200) { // Successful login
-        const token = response.data.token; // Retrieve token from response
-        localStorage.setItem('token', token); // Store token in localStorage
-        console.log("Token stored successfully:", token);
-
-        history.push('/application'); // Redirect to application page
-      }
-    } catch (error) {
-      console.error("Login error:", error.response ? error.response.data.message : error.message);
-      setError(error.response ? error.response.data.message : "Login failed. Please try again.");
+  // Redirect to /jobapplication if the user is already authenticated
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      history.replace(PATHS.JOB_APPLICATION); // Redirect to job application page using path from config
     }
-  };
-
-  const handleBackClick = () => {
-    history.push('/');
-  }
+  }, [history]);
 
   return (
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome!</h1>
-          <form onSubmit={handleLoginClick}>
+          <form onSubmit={(e) => handleLoginClick(e, email, password, setError, history)}>
             <label>Email</label>
             <input
                 type="text"
@@ -64,10 +47,10 @@ function Login() {
 
             <button type="submit">Log In</button>
             <p className="back-button">
-              <button type="button" onClick={handleBackClick}>Back</button>
+              <button type="button" onClick={() => handleBackClick(history)}>Back</button>
             </p>
             <p className="forgot-password">
-              <a href="/forgot-password">Forgot Password?</a>
+              <a href={PATHS.FORGOT_PASSWORD}>Forgot Password?</a> {/* Use PATHS for forgot password link */}
             </p>
           </form>
         </div>
