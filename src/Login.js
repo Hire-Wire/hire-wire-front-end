@@ -25,7 +25,9 @@ function Login() {
       if (response.status === 200) { // Successful login
         const token = response.data.token; // Retrieve token from response
         localStorage.setItem('token', token); // Store token in localStorage
+        localStorage.setItem('email', email); //Store email in localStorage
         console.log("Token stored successfully:", token);
+        console.log("email stored successfully:", email);
 
         history.push('/application'); // Redirect to application page
       }

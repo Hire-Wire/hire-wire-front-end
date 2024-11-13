@@ -1,26 +1,124 @@
 // UserProfile.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './UserProfile.css';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function UserProfile() {
-  // Default values for the user profile
+  const history = useHistory();
+
+  // Retrieve user ID and token (Assuming you have user info stored)
+  const email = localStorage.getItem('email');
+  const token = localStorage.getItem('token');  
+
+  // Initialize form state
   const [profile, setProfile] = useState({
-    firstName: 'John',
-    lastName: 'Smith',
-    phoneNumber: '123-456-7890',
-    email: 'john.doe@example.com'
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    status: 'Unemployed', // Default status
   });
 
+  // State for handling loading and errors
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  // Fetch user profile on component mount
+  useEffect(() => {
+    if (!token) {
+      // If no token, redirect to login
+      history.push('/login');
+      return;
+    }
+
+    axios
+      .get(`/api/v1/users/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        const userData = response.data;
+        setProfile({
+          firstName: userData.firstName || '',
+          lastName: userData.lastName || '',
+          phoneNumber: userData.phoneNumber || '',
+          email: userData.email || '',
+          status: userData.status || 'Unemployed',
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError('Failed to load user profile.');
+        setLoading(false);
+      });
+  }, [email, token, history]);
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };  
+
+  // Handle saving user profile changes
   const handleSaveUserProfileClick = () => {
-    
-  }
-
+    setLoading(true);
+    axios
+      .put(`/api/v1/users/${email}`, profile, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // Update token if it has been refreshed
+        if (response.data.token) {
+          localStorage.setItem('token', response.data.token);
+        }
+        alert('Profile updated successfully!');
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Failed to update profile.');
+        setError('Failed to update profile.');
+        setLoading(false);
+      });
+  };
+  // Handle deleting the user profile
   const handleDeleteProfileClick = () => {
-    
-  }
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete your profile? This action cannot be undone.'
+    );
+    if (!confirmDelete) return;
 
-  const history = useHistory();
+    setLoading(true);
+    axios
+      .delete(`/api/v1/users/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        alert('Profile deleted successfully.');
+        // Clear localStorage and redirect to home or signup
+        localStorage.removeItem('token');
+        localStorage.removeItem('email'); // Adjust based on your implementation
+        history.push('/signup'); // Redirect to signup or another appropriate page
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Failed to delete profile.');
+        setError('Failed to delete profile.');
+        setLoading(false);
+      });
+  };
+
 
   const handleApplicationClick = () => {
     history.push('/application');
@@ -31,7 +129,10 @@ function UserProfile() {
   }
 
   const handleLogOut = () => {
-    history.push('/');
+    // Clear localStorage and redirect to login or home
+    localStorage.removeItem('token');
+    localStorage.removeItem('email'); // Adjust based on your implementation
+    history.push('/login'); // Redirect to login page
   }
 
   return (
