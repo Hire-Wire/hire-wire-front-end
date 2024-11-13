@@ -1,12 +1,18 @@
 // Registration.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../templates/Registration.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { handleBackClick, handleProfileClick } from "../handlers/navigationHandlers";
+import {redirectIfNotAuthenticated} from "../handlers/authUtils";
 
 function Registration() {
   const history = useHistory();
+
+  useEffect(() => {
+    redirectIfNotAuthenticated(history);
+  }, [history]);
+
 
   // State for each input field
   const [firstName, setFirstName] = useState("");

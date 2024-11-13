@@ -1,13 +1,18 @@
 // UserProfile.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../templates/UserProfile.css';
 import { useHistory } from 'react-router-dom';
 import { handleSaveUserProfileClick, handleDeleteProfileClick} from "../handlers/userProfileHandlers";
 import { handleJobApplicationClick, handleExperienceClick } from "../handlers/navigationHandlers";
-import { handleLogOut } from "../handlers/logoutHandler";
+import {handleLogOut, redirectIfNotAuthenticated} from "../handlers/authUtils";
 
 
 function UserProfile() {
+
+  useEffect(() => {
+    redirectIfNotAuthenticated(history);
+  }, [history]);
+
   // Default values for the user profile
   const [profile, setProfile] = useState({
     firstName: 'John',

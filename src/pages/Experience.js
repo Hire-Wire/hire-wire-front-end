@@ -1,13 +1,18 @@
 // Error.js
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../templates/Error.css';
 import { useHistory } from 'react-router-dom';
-import { handleLogOut } from "../handlers/logoutHandler"; // Import the logout function
+import {handleLogOut, redirectIfNotAuthenticated} from "../handlers/authUtils"; // Import the logout function
 import { handleProfileClick, handleJobApplicationClick } from "../handlers/navigationHandlers"; // Import navigation handlers
 
 function Error() {
     const errorMessage = 'Error Message 101';
     const history = useHistory();
+
+    useEffect(() => {
+        redirectIfNotAuthenticated(history); // Check authentication on component mount
+    }, [history]);
+
 
     return (
         <div className="error-container">

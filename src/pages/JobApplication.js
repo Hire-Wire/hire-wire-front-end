@@ -1,62 +1,144 @@
-// JobApplication.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../templates/JobApplication.css';
 import { useHistory } from 'react-router-dom';
-import { handleLogOut } from "../handlers/logoutHandler"; // Import your utility logout function
-import { PATHS } from '../config/pageConfig'; // Import PATHS
+import { handleLogOut, redirectIfNotAuthenticated } from "../handlers/authUtils";
+import { PATHS } from '../config/pageConfig';
+import axios from 'axios';
+import { copyToClipboard } from '../handlers/copyUtils';
+
+function GeneratedContent({ label, content, onCopy }) {
+    return (
+        <div className="generated-content">
+            <label>
+                {label}
+                <button onClick={onCopy} className="copy-button">Copy Text</button>
+            </label>
+            <textarea readOnly value={content} className="generated-textarea"></textarea>
+        </div>
+    );
+}
 
 function JobApplication() {
     const history = useHistory();
+    const [jobTitle, setJobTitle] = useState("");
+    const [jobCompany, setJobCompany] = useState("");
+    const [jobDescriptionBody, setJobDescriptionBody] = useState("");
+    const [customPrompt, setCustomPrompt] = useState("");
+    const [generatedResume, setGeneratedResume] = useState("");
+    const [generatedCoverLetter, setGeneratedCoverLetter] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleProfileClick = () => {
-        history.push(PATHS.USER_PROFILE);
+    useEffect(() => {
+        redirectIfNotAuthenticated(history);
+    }, [history]);
+
+    const handleGenerateContent = async () => {
+        if (!jobTitle || !jobCompany || !jobDescriptionBody) {
+            setError("Please fill in the job title, company, and description fields.");
+            return;
+        }
+
+        try {
+            setError("");
+            setLoading(true);
+
+            const token = localStorage.getItem('token');
+            const response = await axios.post(
+                "http://localhost:8000/api/v1/job-application/generate-content",
+                { jobTitle, jobCompany, jobDescriptionBody, customPrompt },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                    withCredentials: true,
+                }
+            );
+
+            if (response.data.success) {
+                setGeneratedResume(response.data.data.resume);
+                setGeneratedCoverLetter(response.data.data.coverLetter);
+            } else {
+                setError(response.data.message || "Failed to generate content.");
+            }
+        } catch (error) {
+            setError(error.response?.data.message || "An error occurred while generating content.");
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleExperienceClick = () => {
-        history.push(PATHS.EXPERIENCE);
+    const handleCopy = (text) => {
+        copyToClipboard(text); // Just copy text, no message or timeout needed
     };
 
     return (
         <div className="application-container">
             <nav className="application-nav">
-                <button type="profile" onClick={handleProfileClick}> Profile </button>
-                <button type="experience" onClick={handleExperienceClick}> Experience</button>
+                <button onClick={() => history.push(PATHS.USER_PROFILE)}>Profile</button>
+                <button onClick={() => history.push(PATHS.EXPERIENCE)}>Experience</button>
                 <button>Application</button>
-                {/* Use the imported handleLogOut function and pass history to it */}
-                <button type="logout" onClick={() => handleLogOut(history)}>Log Out</button>
+                <button onClick={() => handleLogOut(history)}>Log Out</button>
             </nav>
 
             <div className="application-box">
                 <h2>Start an Application!</h2>
-                <div className="additional-info">
-                    <label>Additional Information</label>
-                    <textarea placeholder="Write additional information about yourself (Optional)"></textarea>
-                </div>
                 <div className="job-posting-info">
                     <label>Job Posting Information</label>
                 </div>
                 <div className="job-title-info">
                     <label>Job Title</label>
-                    <input type="text" placeholder="Job title" />
+                    <input
+                        type="text"
+                        placeholder="Job title"
+                        value={jobTitle}
+                        onChange={(e) => setJobTitle(e.target.value)}
+                    />
                 </div>
                 <div className="job-org-info">
                     <label>Company / Organization</label>
-                    <input type="text" placeholder="Company" />
+                    <input
+                        type="text"
+                        placeholder="Company"
+                        value={jobCompany}
+                        onChange={(e) => setJobCompany(e.target.value)}
+                    />
                 </div>
                 <div className="job-desc">
                     <label>Description</label>
-                    <textarea placeholder="Job description / information..."></textarea>
+                    <textarea
+                        placeholder="Job description / information..."
+                        value={jobDescriptionBody}
+                        onChange={(e) => setJobDescriptionBody(e.target.value)}
+                    ></textarea>
                 </div>
-                <button className="generate-button">Generate Resume and Cover Letter</button>
+                <div className="additional-info">
+                    <label>Additional Information</label>
+                    <textarea
+                        placeholder="Write additional information about yourself (Optional). This prompt will help us tailor your application to your needs."
+                        value={customPrompt}
+                        onChange={(e) => setCustomPrompt(e.target.value)}
+                    ></textarea>
+                </div>
+                <button
+                    className="generate-button"
+                    onClick={handleGenerateContent}
+                    disabled={loading}
+                >
+                    {loading ? "Generating..." : "Generate Resume and Cover Letter"}
+                </button>
 
-                <div className="cover-letter">
-                    <label>Generated Cover Letter</label>
-                    <textarea placeholder="Generated cover letter"></textarea>
-                </div>
-                <div className="resume">
-                    <label>Generated Resume</label>
-                    <textarea placeholder="Generated resume content"></textarea>
-                </div>
+                {error && <p className="error-message">{error}</p>}
+
+                <GeneratedContent
+                    label="Generated Resume"
+                    content={generatedResume}
+                    onCopy={() => handleCopy(generatedResume)}
+                />
+
+                <GeneratedContent
+                    label="Generated Cover Letter"
+                    content={generatedCoverLetter}
+                    onCopy={() => handleCopy(generatedCoverLetter)}
+                />
             </div>
         </div>
     );
