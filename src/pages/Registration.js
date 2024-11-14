@@ -1,10 +1,8 @@
-// Registration.js
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../templates/Registration.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { handleBackClick, handleProfileClick } from "../handlers/navigationHandlers";
-import { redirectIfNotAuthenticated } from "../handlers/authUtils";
 
 function Registration() {
   const history = useHistory();
@@ -15,7 +13,6 @@ function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(""); // For re-entered password
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState(""); // To show error messages
 
   const handleRegistrationClick = async (e) => {
@@ -35,7 +32,7 @@ function Registration() {
 
     try {
       // Data to send to the backend
-      const data = { firstName, lastName, email, password, phoneNumber };
+      const data = { firstName, lastName, email, password };
 
       console.log("Request data:", data);
 
@@ -50,11 +47,11 @@ function Registration() {
 
       if (response.status === 201) {
         console.log(response.data.message); // Success message
-        const { token, userID } = response.data; // Retrieve token and userID from response
+        const { token, userData } = response.data; // Retrieve token and userData from response
         localStorage.setItem('token', token); // Store token in localStorage
-        localStorage.setItem('userID', userID); // Store userID in localStorage
+        localStorage.setItem('userId', userData.id); // Store userID in localStorage
         console.log("Token stored successfully:", token);
-        console.log("User ID stored successfully:", userID);
+        console.log("userId stored successfully:", userData.id);
 
         handleProfileClick(history); // Use navigation handler to redirect to the profile page
       }
@@ -104,17 +101,10 @@ function Registration() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <label>Phone Number</label>
-            <input
-                type="text"
-                placeholder="Phone Number (optional)"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-            />
             {error && <p className="error-message">{error}</p>}
             <button type="submit">Register</button>
             <p className="back-button">
-              <button type="button" onClick={() => handleBackClick(history)}>Back</button> {/* Use handleBackClick */}
+              <button type="button" onClick={() => handleBackClick(history)}>Back</button>
             </p>
           </form>
         </div>
