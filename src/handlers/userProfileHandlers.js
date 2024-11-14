@@ -35,6 +35,9 @@ export const handleSaveUserProfileClick = async (userId, profile, token, setLoad
         console.error(err);
         // alert('Failed to update profile.');
         setError(err.response ? err.response.data.message : 'Failed to update profile.');
+        setTimeout(() => {
+            setError('');
+        }, 3000);
     } finally {
         setLoading(false);
     }
@@ -72,6 +75,9 @@ export const handleDeleteProfileClick = async (userId, token, history, setLoadin
         console.error(err);
         // alert('Failed to delete profile.');
         setError(err.response ? err.response.data.message : 'Failed to delete profile.');
+        setTimeout(() => {
+            setError('');
+        }, 3000);
     } finally {
         setLoading(false);
     }

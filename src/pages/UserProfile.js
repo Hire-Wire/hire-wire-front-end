@@ -45,7 +45,7 @@ function UserProfile() {
                 setProfile({
                     firstName: userData.firstName || '',
                     lastName: userData.lastName || '',
-                    phoneNumber: userData.phoneNumber || '',
+                    phoneNumber: userData.phoneNumber || '403',
                     email: userData.email || '',
                     status: userData.status || 'Unemployed',
                 });
