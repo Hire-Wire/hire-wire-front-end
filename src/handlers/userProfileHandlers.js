@@ -1,5 +1,6 @@
 // handlers/userProfileHandlers.js
 import axios from 'axios';
+import {PATHS} from "../config/pageConfig";
 
 // Define the backend URL
 const BACKEND_URL = 'http://localhost:8000'; 
@@ -20,8 +21,8 @@ export const handleSaveUserProfileClick = async (userId, profile, token, setLoad
         const response = await axios.put(`${BACKEND_URL}/api/v1/users/${userId}`, profile, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                withCredentials: true,
             },
+            withCredentials: true,
         });
 
         // Update token if it has been refreshed
@@ -29,10 +30,10 @@ export const handleSaveUserProfileClick = async (userId, profile, token, setLoad
             localStorage.setItem('token', response.data.token);
         }
 
-        alert('Profile updated successfully!');
+        // alert('Profile updated successfully!');
     } catch (err) {
         console.error(err);
-        alert('Failed to update profile.');
+        // alert('Failed to update profile.');
         setError(err.response ? err.response.data.message : 'Failed to update profile.');
     } finally {
         setLoading(false);
@@ -62,18 +63,19 @@ export const handleDeleteProfileClick = async (userId, token, history, setLoadin
             },
         });
 
-        alert('Profile deleted successfully.');
+        // alert('Profile deleted successfully.');
         // Clear localStorage and redirect to signup or another appropriate page
         localStorage.removeItem('token');
         localStorage.removeItem('userId'); // Ensure userId is removed
         history.push('/signup'); // Redirect to signup or another appropriate page
     } catch (err) {
         console.error(err);
-        alert('Failed to delete profile.');
+        // alert('Failed to delete profile.');
         setError(err.response ? err.response.data.message : 'Failed to delete profile.');
     } finally {
         setLoading(false);
     }
+    history.push(PATHS.HOME); // go back to home page
 };
 
 /**
@@ -81,7 +83,7 @@ export const handleDeleteProfileClick = async (userId, token, history, setLoadin
  * @param {object} history - The history object from react-router.
  */
 export const handleJobApplicationClick = (history) => {
-    history.push('/application');
+    history.push(PATHS.JOB_APPLICATION);
 };
 
 /**
@@ -89,5 +91,5 @@ export const handleJobApplicationClick = (history) => {
  * @param {object} history - The history object from react-router.
  */
 export const handleExperienceClick = (history) => {
-    history.push('/experience');
+    history.push(PATHS.EXPERIENCE);
 };

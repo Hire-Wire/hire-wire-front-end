@@ -47,7 +47,7 @@ function UserProfile() {
                     lastName: userData.lastName || '',
                     phoneNumber: userData.phoneNumber || '',
                     email: userData.email || '',
-                    status: userData.status || '',
+                    status: userData.status || 'Unemployed',
                 });
             } catch (error) {
                 setError(error.response ? error.response.data.message : "Failed to load profile data.");
