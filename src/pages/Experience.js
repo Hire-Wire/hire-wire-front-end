@@ -97,19 +97,54 @@ function Experience() {
   };
 
   // Remove an experience entry
-  const removeEmployment = (index) => {
-    const updatedExperience = [...experience.exp];
-    updatedExperience.splice(index, 1);
-    setExperience({ ...experience, exp: updatedExperience });
+  const removeEmployment = async (index, expId) => {
+
+    try {
+      // Call backend to delete the experience
+      const response = await axios.delete(`http://localhost:8000/api/v1/experiences/${expId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          withCredentials: true,
+        },
+      });
+  
+      if (response.status === 204) {
+        // If successfully deleted, remove from state
+        const updatedExperience = [...experience.exp];
+        updatedExperience.splice(index, 1);
+        setExperience({ ...experience, exp: updatedExperience });
+        console.log('Experience successfully deleted.');
+      }
+    } catch (error) {
+      console.error('Error deleting experience:', error);
+      alert('Failed to delete experience. Please try again.');
+    }
   };
 
 
 
   // Remove an education entry
-  const removeEducation = (index) => {
-    const updatedEducation = [...experience.education];
-    updatedEducation.splice(index, 1);
-    setExperience({ ...experience, education: updatedEducation });
+  const removeEducation = async (index, eduId) => {
+    try {
+      // Call backend to delete the education experience
+      const response = await axios.delete(`http://localhost:8000/api/v1/experiences/${eduId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          withCredentials: true,
+        },
+      });
+  
+      if (response.status === 204) {
+        // If successfully deleted, remove from state
+        const updatedEducation = [...experience.education];
+        updatedEducation.splice(index, 1);
+        setExperience({ ...experience, education: updatedEducation });
+        console.log('Education successfully deleted.');
+      }
+    } catch (error) {
+      console.error('Error deleting education:', error);
+      alert('Failed to delete education. Please try again.');
+    }
   };
 
     // Handle the input changes for both experience and education
@@ -406,7 +441,7 @@ function Experience() {
                     <button
                       type="button"
                       className="remove-button"
-                      onClick={() => removeEmployment(index)}
+                      onClick={() => removeEmployment(index, expItem.id)}
                     >
                       - Remove Experience
                     </button>
@@ -541,7 +576,7 @@ function Experience() {
                     <button
                       type="button"
                       className="remove-button"
-                      onClick={() => removeEducation(index)}
+                      onClick={() => removeEducation(index, eduItem.id)}
                     >
                       - Remove Education
                     </button>
