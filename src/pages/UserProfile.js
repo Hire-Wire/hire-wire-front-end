@@ -4,11 +4,10 @@ import { useHistory } from 'react-router-dom';
 import {
     handleSaveUserProfileClick,
     handleDeleteProfileClick,
-    handleJobApplicationClick,
-    handleExperienceClick
 } from "../handlers/userProfileHandlers";
-import { handleLogOut, redirectIfNotAuthenticated } from "../handlers/authUtils";
+import { redirectIfNotAuthenticated } from "../handlers/authUtils";
 import axios from 'axios';
+import NavBar from '../component/NavBar';
 
 function UserProfile() {
     const history = useHistory();
@@ -75,12 +74,7 @@ function UserProfile() {
 
     return (
         <div className="profile-container">
-            <nav className="profile-nav">
-                <button type="button">Profile</button>
-                <button type="button" onClick={() => handleExperienceClick(history)}>Experience</button>
-                <button type="button" onClick={() => handleJobApplicationClick(history)}>Application</button>
-                <button type="button" onClick={() => handleLogOut(history)}>Log Out</button>
-            </nav>
+            <NavBar />
 
             <div className="profile-box">
                 <h2>User Profile</h2>
