@@ -31,7 +31,6 @@ const Experience = () => {
       const formatedExperience = formatExperience(experienceList.data.experiences);
       setLoading(false);
       setExperiences(formatedExperience);
-      console.log(formatedExperience);
     } catch (error) {
       console.error("Failed to fetch experiences:", error);
       setLoading(false);
