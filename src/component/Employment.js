@@ -26,10 +26,32 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
   };
 
   // Remove an experience entry
-  const removeEmployment = (index) => {
+  const removeEmployment = async (index) => {
     const updatedExperience = [...experiences.employments];
-    updatedExperience.splice(index, 1);
-    setExperiences({ ...experiences, employments: updatedExperience });
+    const removedEmployment = updatedExperience.splice(index, 1)[0];
+    const data = { id: removedEmployment.id }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/experiences/${removedEmployment.experienceId}`,
+      {
+        data,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        withCredentials: true 
+      });
+
+      if (response.data.success) {
+        setExperiences({ ...experiences, employments: updatedExperience });
+        getExperiences()
+        enqueueSnackbar('Employment Deleted', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Failed to delete employment', { variant: 'error' });
+      }
+    } catch {
+      enqueueSnackbar('Error deleting employment', { variant: 'error' });
+    }
   };
 
   const handleSaveEmploymentExperienceClick = async (index) => {

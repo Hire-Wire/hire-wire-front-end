@@ -26,10 +26,32 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
   };
 
   // Remove an education entry
-  const removeEducation = (index) => {
+  const removeEducation = async (index) => {
     const updatedEducation = [...experiences.educations];
-    updatedEducation.splice(index, 1);
-    setExperiences({ ...experiences, educations: updatedEducation });
+    const removedEducation = updatedEducation.splice(index, 1)[0];
+    const data = { id: removedEducation.id }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/experiences/${removedEducation.experienceId}`,
+      {
+        data,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        withCredentials: true 
+      });
+
+      if (response.data.success) {
+        setExperiences({ ...experiences, educations: updatedEducation });
+        getExperiences()
+        enqueueSnackbar('Employment Deleted', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Failed to delete employment', { variant: 'error' });
+      }
+    } catch {
+      enqueueSnackbar('Error deleting employment', { variant: 'error' });
+    }
   };
   
   const handleSaveEducationClick = async (index) => {
