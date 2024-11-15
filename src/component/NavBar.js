@@ -3,12 +3,12 @@ import { useHistory, useLocation } from 'react-router-dom';
 import {PATHS} from "../config/pageConfig";
 import {handleLogOut} from "../handlers/authUtils";
 
-const NavBar = ({ currentPath }) => {
+const NavBar = () => {
   const history = useHistory();
   const location = useLocation();
   
   const NavigateTo = (path) => {
-    if(location.pathname === currentPath) return;
+    if(location.pathname === path) return;
     history.push(path);
   };
 
