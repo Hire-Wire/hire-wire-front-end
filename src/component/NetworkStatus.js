@@ -11,11 +11,9 @@ const NetworkStatus = () => {
             setIsOnline(false);
             console.log('Network disconnected. Revoking authentication...');
 
-            // Clear authentication data
-            localStorage.removeItem('token'); // Remove the token
-            sessionStorage.removeItem('userId'); // Remove user session (if stored here)
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('userId');
 
-            // Redirect to the login page
             history.push('/login');
         };
 
