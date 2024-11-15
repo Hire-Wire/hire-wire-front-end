@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../templates/JobApplication.css';
 import { useHistory } from 'react-router-dom';
-import { handleLogOut, redirectIfNotAuthenticated } from "../handlers/authUtils";
-import { PATHS } from '../config/pageConfig';
+import { redirectIfNotAuthenticated } from "../handlers/authUtils";
 import axios from 'axios';
+import NavBar from "../component/NavBar";
 import { copyToClipboard } from '../handlers/copyUtils';
 
 function GeneratedContent({ label, content, onCopy }) {
@@ -72,13 +72,7 @@ function JobApplication() {
 
     return (
         <div className="application-container">
-            <nav className="application-nav">
-                <button onClick={() => history.push(PATHS.USER_PROFILE)}>Profile</button>
-                <button onClick={() => history.push(PATHS.EXPERIENCE)}>Experience</button>
-                <button>Application</button>
-                <button onClick={() => handleLogOut(history)}>Log Out</button>
-            </nav>
-
+            <NavBar />
             <div className="application-box">
                 <h2>Start an Application!</h2>
                 <div className="job-posting-info">

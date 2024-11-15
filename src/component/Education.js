@@ -1,7 +1,9 @@
 import React from "react";
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const Education = ({ experiences, setExperiences, getExperiences }) => {
+  const { enqueueSnackbar } = useSnackbar();
   // Handle the input changes for both experience and education
   const handleInputChange = (e, index, type, field) => {
     const updatedExperience = [...experiences[type]];
@@ -54,14 +56,13 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
       });
 
       if (response.data.success) {
-        // Display a success message or handle the response
         getExperiences();
+        enqueueSnackbar('Education Updated', { variant: 'success' });
       } else {
-        // Handle backend validation errors
-        console.error('Failed to save experience', response.data.errors);
+        enqueueSnackbar('Failed to save education', { variant: 'error' });
       }
     } catch (error) {
-      console.error('Error saving experience:', error.message);
+      enqueueSnackbar('Error saving experience', { variant: 'error' });
     }
   };
 
