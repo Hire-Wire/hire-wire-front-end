@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 
 const Education = ({ experiences, setExperiences, getExperiences }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { newEducation, setNewEducation } = useState(false);
   // Handle the input changes for both experience and education
   const handleInputChange = (e, index, type, field) => {
     const updatedExperience = [...experiences[type]];
@@ -23,6 +24,7 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
         { organizationName: '', startDate: '', endDate: '', fieldOfStudy:'', grade:'', degree: '' },
       ],
     });
+    setNewEducation(true);
   };
 
   // Remove an education entry
@@ -56,28 +58,35 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
   
   const handleSaveEducationClick = async (index) => {
     const eduData = experiences.educations[index];
+  
     // Prepare the data to be sent to the backend
     const data = {
-      "experienceType": 'Education',
-      "organizationName": eduData.organizationName,
-      "education": {
-        "degree": eduData.degree,
-        "fieldOfStudy": eduData.fieldOfStudy,
-        "grade": eduData.grade,
-        "startDate": eduData.startDate,
-        "endDate": eduData.endDate,
-      }
+      experienceType: 'Education',
+      organizationName: eduData.organizationName,
+      education: {
+        degree: eduData.degree,
+        fieldOfStudy: eduData.fieldOfStudy,
+        grade: eduData.grade,
+        startDate: eduData.startDate,
+        endDate: eduData.endDate,
+      },
     };
-
+  
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      withCredentials: true,
+    };
+  
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        withCredentials: true 
-      });
-
+      const apiUrl = 'http://localhost:8000/api/v1/experiences';
+      const response = newEducation
+        ? await axios.post(apiUrl, data, config)
+        : await axios.put(`${apiUrl}/${eduData.experienceId}`, data, config);
+  
       if (response.data.success) {
+        setNewEducation(false);
         getExperiences();
         enqueueSnackbar('Education Updated', { variant: 'success' });
       } else {
@@ -87,6 +96,7 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
       enqueueSnackbar('Error saving experience', { variant: 'error' });
     }
   };
+  
 
   return (
     <div>
