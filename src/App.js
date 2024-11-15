@@ -3,7 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from './pages/Landing';
 import UserProfile from './pages/UserProfile';
-import Experience from './pages/Experience';
+import ViewEditExperience from './pages/ViewEditExperience';
+import AddExperience from './pages/AddExperience';
 import JobApplication from './pages/JobApplication';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
@@ -24,7 +25,10 @@ function App() {
             <UserProfile />
           </Route>
           <Route exact path={PATHS.EXPERIENCE}>
-            <Experience />
+            <ViewEditExperience />
+          </Route>
+          <Route exact path={PATHS.ADDEXPERIENCE}>
+            <AddExperience />
           </Route>
           <Route exact path={PATHS.JOB_APPLICATION}>
             <JobApplication />
