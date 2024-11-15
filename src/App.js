@@ -9,11 +9,13 @@ import JobApplication from './pages/JobApplication';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Error from './pages/Error';
+import NetworkStatus from "./component/NetworkStatus";
 import { PATHS } from './config/pageConfig'; // Import PATHS
 
 function App() {
   return (
       <Router basename="/hire-wire-front-end">
+        <NetworkStatus />
         <Switch>
           <Route exact path={PATHS.HOME}>
             <Landing />

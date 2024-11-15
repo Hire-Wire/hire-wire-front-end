@@ -19,7 +19,7 @@ export const handleLogOut = async (history) => {
 
         // Clear token and redirect
         localStorage.removeItem('token');
-        localStorage.removeItem('userID');
+        localStorage.removeItem('userId');
         history.replace('/');
     } catch (error) {
         console.error("Logout error:", error);

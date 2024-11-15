@@ -51,7 +51,7 @@ function ViewEditExperience() {
       endDate: '',
       jobDescription: ''
     }));
-    
+
     const initialEducation = Array.from({ length: noOfEducationExperience }, () => ({
       organizationName: '',
       startDate: '',
@@ -60,7 +60,7 @@ function ViewEditExperience() {
       grade: '',
       degree: ''
     }));
-  
+
       setExperience({
         exp: initialExp,
         education: initialEducation
@@ -162,10 +162,6 @@ function ViewEditExperience() {
     history.push(PATHS.USER_PROFILE);
   };
 
-  const handleApplicationClick = () => {
-    history.push(PATHS.JOB_APPLICATION);
-  }
-
   const handleViewEditExpClick = () => {
     history.push(PATHS.EXPERIENCE);
   }
@@ -178,7 +174,7 @@ function ViewEditExperience() {
     history.push(PATHS.JOB_APPLICATION);
   }
 
-  const handleLogoutClick = () => {
+  const handleLogOut = () => {
     handleLogOut(history);
   };
 
