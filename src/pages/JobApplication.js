@@ -27,7 +27,8 @@ function JobApplication() {
     const [generatedResume, setGeneratedResume] = useState("");
     const [generatedCoverLetter, setGeneratedCoverLetter] = useState("");
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true); // Initialize loading state
+    const [loading, setLoading] = useState(false); // Initialize loading state
+    const [countdown, setCountdown] = useState(0); // Countdown state
 
     useEffect(() => {
         redirectIfNotAuthenticated(history, setLoading);
@@ -42,6 +43,17 @@ function JobApplication() {
         try {
             setError("");
             setLoading(true);
+            setCountdown(11); // Set the countdown to 11 seconds
+
+            // Start the countdown timer
+            const countdownInterval = setInterval(() => {
+                setCountdown((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(countdownInterval); // Stop the countdown when it reaches 0
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
 
             const token = localStorage.getItem('token');
             const response = await axios.post(
@@ -50,6 +62,7 @@ function JobApplication() {
                 {
                     headers: { Authorization: `Bearer ${token}` },
                     withCredentials: true,
+                    timeout: 15000, // 15 seconds timeout for the request
                 }
             );
 
@@ -117,7 +130,7 @@ function JobApplication() {
                     onClick={handleGenerateContent}
                     disabled={loading}
                 >
-                    {loading ? "Generating..." : "Generate"}
+                    {loading ? (countdown > 0 ? `Please wait... ${countdown}s` : "Generating...") : "Generate"}
                 </button>
 
                 {error && <p className="error-message">{error}</p>}
