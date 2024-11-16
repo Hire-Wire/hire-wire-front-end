@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 
 const Employment = ({ experiences, setExperiences, getExperiences }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const [ newEmployment, setNewEmployment ] = useState(false);
   // Handle the input changes for both experience and education
   const handleInputChange = (e, index, type, field) => {
     const updatedExperience = [...experiences[type]];
@@ -23,13 +24,36 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
         { jobTitle: '', organizationName: '', startDate: '', endDate: '', jobDescription: '' },
       ],
     });
+    setNewEmployment(true);
   };
 
   // Remove an experience entry
-  const removeEmployment = (index) => {
+  const removeEmployment = async (index) => {
     const updatedExperience = [...experiences.employments];
-    updatedExperience.splice(index, 1);
-    setExperiences({ ...experiences, employments: updatedExperience });
+    const removedEmployment = updatedExperience.splice(index, 1)[0];
+    const data = { id: removedEmployment.id }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/experiences/${removedEmployment.experienceId}`,
+      {
+        data,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        withCredentials: true 
+      });
+
+      if (response.data.success) {
+        setExperiences({ ...experiences, employments: updatedExperience });
+        getExperiences()
+        enqueueSnackbar('Employment Deleted', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Failed to delete employment', { variant: 'error' });
+      }
+    } catch {
+      enqueueSnackbar('Error deleting employment', { variant: 'error' });
+    }
   };
 
   const handleSaveEmploymentExperienceClick = async (index) => {
@@ -39,6 +63,7 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
       "experienceType": 'Employment',
       "organizationName": expData.organizationName,
       "employment": {
+        "id": expData.id,
         "jobTitle": expData.jobTitle,
         "jobDescription": expData.jobDescription,
         "startDate": expData.startDate,
@@ -46,14 +71,21 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
       }
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      withCredentials: true,
+    };
+  
+
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        withCredentials: true 
-      });
+      const apiUrl = 'http://localhost:8000/api/v1/experiences';
+      const response = newEmployment
+        ? await axios.post(apiUrl, data, config)
+        : await axios.put(`${apiUrl}/${expData.experienceId}`, data, config);
       if (response.data.success) {
+        setNewEmployment(false);
         getExperiences()
         enqueueSnackbar('Employment Updated', { variant: 'success' });
       } else {
