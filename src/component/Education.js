@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 
 const Education = ({ experiences, setExperiences, getExperiences }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { newEducation, setNewEducation } = useState(false);
+  const [ newEducation, setNewEducation ] = useState(false);
   // Handle the input changes for both experience and education
   const handleInputChange = (e, index, type, field) => {
     const updatedExperience = [...experiences[type]];
