@@ -55,24 +55,12 @@ body {
 .input-group input[type="text"],
 .input-group input[type="email"],
 .input-group input[type="tel"] {
-  max-width: 80%; /* Limits the width to 80% of the container */
+  max-width: 80%;
   padding: 0.75rem;
   border-radius: 5px;
   border: none;
   background-color: #444;
   color: white;
-}
-
-/* Optional: Adjust textarea and select widths similarly, if desired */
-.input-group textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 5px;
-  border: none;
-  background-color: #444;
-  color: white;
-  resize: none;
-  height: 100px;
 }
 
 .input-group select {
@@ -139,11 +127,11 @@ body {
 }
 
 .save-button {
-  background-color: #3b82f6; /* Matches the generate-button color */
+  background-color: #3b82f6;
   color: white;
-  padding: 0.75rem 1.5rem; /* Matches padding for consistency */
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 10px; /* Matches border-radius */
+  border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -152,7 +140,7 @@ body {
 }
 
 .save-button:hover {
-  background-color: #2563eb; /* Matches the hover color of generate-button */
+  background-color: #2563eb;
 }
 
 .delete-user-profile-button {
@@ -174,4 +162,22 @@ body {
 .delete-user-profile-button:hover {
   border-color: #f87171;
   color: #f87171;
+}
+
+/* Error message styling */
+.error-message {
+  color: #f87171; /* Red color for errors */
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* Success message styling */
+.success-message {
+  color: #22c55e; /* Green color for success */
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
 }
