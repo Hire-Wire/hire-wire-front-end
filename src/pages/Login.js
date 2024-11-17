@@ -59,9 +59,6 @@ function Login() {
             <p className="back-button">
               <button type="button" onClick={() => handleBackClick(history)}>Back</button>
             </p>
-            <p className="forgot-password">
-              <a href={PATHS.FORGOT_PASSWORD}>Forgot Password?</a> {/* Use PATHS for forgot password link */}
-            </p>
           </form>
         </div>
       </div>
