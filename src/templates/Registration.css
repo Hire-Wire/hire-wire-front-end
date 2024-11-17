@@ -1,94 +1,110 @@
-/* Login.css */
-
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-size: cover;
-  }
-  
-  .registration-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .registration-box {
-    background-color: #333;
-    padding: 1rem;
-    border-radius: 25px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
-    color: white;
-    max-width: 400px;
-    width: 100%;
-    text-align: center; /* Center-align text within the box */
-  }
-  
-  .registration-box h1 {
-    margin-top: 1rem;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .registration-box label {
-    display: block;
-    text-align: left; /* Align labels to the left */
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-top: 0rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .registration-box input {
-    width: 90%; /* Slightly smaller than full width to give padding on the sides */
-    padding: 0.75rem;
-    border-radius: 10px;
-    border: none;
-    margin: 0 auto 1rem auto; /* Center-align with auto margin */
-    background-color: #444;
-    color: white;
-    font-size: 1rem;
-    display: block; /* Ensure the input is block-level to respond to margin:auto */
-  }
-  
-  .registration-box button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #3B82F6; /* Blue button color */
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 1rem;
-  }
-  
-  .registration-box button:hover {
-    background-color: #2563EB;
-  }
-  
-  .back-button {
-    margin-top: 0rem;
-  }
-  
-  .back-button button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #555; /* Darker button color for Back button */
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .back-button button:hover {
-    background-color: #444;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.registration-box {
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 25px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+  color: white;
+  max-width: 400px;
+  width: 100%;
+  text-align: center; /* Center-align text within the box */
+}
+
+.registration-box h1 {
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.registration-box label {
+  display: block;
+  text-align: left; /* Align labels to the left */
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+}
+
+.registration-box input {
+  width: 90%; /* Slightly smaller than full width to give padding on the sides */
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: none;
+  margin: 0 auto 1rem auto; /* Center-align with auto margin */
+  background-color: #444;
+  color: white;
+  font-size: 1rem;
+  display: block; /* Ensure the input is block-level to respond to margin:auto */
+}
+
+.registration-box button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3B82F6; /* Blue button color */
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+}
+
+.registration-box button:hover {
+  background-color: #2563EB;
+}
+
+.back-button {
+  margin-top: 0rem;
+}
+
+.back-button button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #555; /* Darker button color for Back button */
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.back-button button:hover {
+  background-color: #444;
+}
+
+/* Error message styling */
+.error-message {
+  color: #f87171; /* Red for errors */
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* Success message styling */
+.success-message {
+  color: #22c55e; /* Green for success */
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
