@@ -57,20 +57,25 @@ function UserProfile() {
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
+    // Validation Helper Functions
+    const isEmptyOrNumeric = (input) => !input.trim() || /^\d+$/.test(input); // Checks for empty or numeric input
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Regex for email validation
+
     const onSaveProfile = async () => {
         setError("");
         setSuccessMessage("");
 
-        if (!profile.firstName.trim()) {
-            setError("First Name is required.");
+        // Perform validation
+        if (isEmptyOrNumeric(profile.firstName)) {
+            setError("Please enter a valid first name.");
             return;
         }
-        if (!profile.lastName.trim()) {
-            setError("Last Name is required.");
+        if (isEmptyOrNumeric(profile.lastName)) {
+            setError("Please enter a valid last name.");
             return;
         }
-        if (!profile.email.trim()) {
-            setError("Email Address is required.");
+        if (!isValidEmail(profile.email)) {
+            setError("Please enter a valid email address.");
             return;
         }
 
