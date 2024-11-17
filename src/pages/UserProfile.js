@@ -58,7 +58,7 @@ function UserProfile() {
     const token = localStorage.getItem("token");
 
     // Validation Helper Functions
-    const isEmptyOrNumeric = (input) => !input.trim() || /^\d+$/.test(input); // Checks for empty or numeric input
+    const isAlphabetic = (input) => /^[A-Za-z]+$/.test(input); // Checks if input contains only letters
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Regex for email validation
 
     const onSaveProfile = async () => {
@@ -66,11 +66,11 @@ function UserProfile() {
         setSuccessMessage("");
 
         // Perform validation
-        if (isEmptyOrNumeric(profile.firstName)) {
+        if (!isAlphabetic(profile.firstName)) {
             setError("Please enter a valid first name.");
             return;
         }
-        if (isEmptyOrNumeric(profile.lastName)) {
+        if (!isAlphabetic(profile.lastName)) {
             setError("Please enter a valid last name.");
             return;
         }
