@@ -14,18 +14,15 @@ function UserProfile() {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState(""); // State to handle success message
 
-    // Initialize profile state with empty strings to avoid null/undefined values
     const [profile, setProfile] = useState({
         firstName: '',
         lastName: '',
-        phoneNumber: '',
+        phoneNumber: null,
         email: '',
         status: '',
     });
-
-    // Check if required fields are filled
-    const isSaveDisabled = !profile.firstName || !profile.lastName || !profile.email;
 
     useEffect(() => {
         redirectIfNotAuthenticated(history, setLoading);
@@ -39,12 +36,11 @@ function UserProfile() {
                     withCredentials: true,
                 });
 
-                // Use empty strings if any of the fields are null or undefined
                 const userData = response.data;
                 setProfile({
                     firstName: userData.firstName || '',
                     lastName: userData.lastName || '',
-                    phoneNumber: userData.phoneNumber || '403',
+                    phoneNumber: userData.phoneNumber || null,
                     email: userData.email || '',
                     status: userData.status || 'Unemployed',
                 });
@@ -58,18 +54,50 @@ function UserProfile() {
         fetchUserProfile();
     }, [history]);
 
-    // Extract userId and token from localStorage
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
-    // Handler for saving profile
-    const onSaveProfile = () => {
-        handleSaveUserProfileClick(userId, profile, token, setLoading, setError);
+    const onSaveProfile = async () => {
+        setError("");
+        setSuccessMessage("");
+
+        if (!profile.firstName.trim()) {
+            setError("First Name is required.");
+            return;
+        }
+        if (!profile.lastName.trim()) {
+            setError("Last Name is required.");
+            return;
+        }
+        if (!profile.email.trim()) {
+            setError("Email Address is required.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            await handleSaveUserProfileClick(userId, profile, token, setLoading, setError);
+            setSuccessMessage("Profile saved successfully!");
+            setTimeout(() => setSuccessMessage(""), 3000);
+        } catch (err) {
+            setError("Failed to save profile.");
+        } finally {
+            setLoading(false);
+        }
     };
 
-    // Handler for deleting profile
-    const onDeleteProfile = () => {
-        handleDeleteProfileClick(userId, token, history, setLoading, setError);
+    const onDeleteProfile = async () => {
+        setLoading(true);
+        setError("");
+        setSuccessMessage("");
+
+        try {
+            await handleDeleteProfileClick(userId, token, history, setLoading, setError);
+        } catch (err) {
+            setError("Failed to delete profile.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -80,6 +108,7 @@ function UserProfile() {
                 <h2>User Profile</h2>
                 {loading && <p>Loading...</p>}
                 {error && <p className="error-message">{error}</p>}
+                {successMessage && <p className="success-message">{successMessage}</p>}
                 {!loading && (
                     <form>
                         <div className="input-row">
@@ -138,7 +167,7 @@ function UserProfile() {
                             type="button"
                             className="save-button"
                             onClick={onSaveProfile}
-                            disabled={isSaveDisabled || loading} // Disable if required fields are empty or loading
+                            disabled={loading}
                         >
                             {loading ? 'Saving...' : 'Save Profile'}
                         </button>
