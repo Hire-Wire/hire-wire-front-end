@@ -30,6 +30,13 @@ function Registration() {
       return;
     }
 
+    // Check if password meets minimum length requirement
+    const passwordRegex = /^.{8,}$/; // At least 8 characters
+    if (!passwordRegex.test(password)) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
     try {
       // Data to send to the backend
       const data = { firstName, lastName, email, password };
