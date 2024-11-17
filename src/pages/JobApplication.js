@@ -18,6 +18,10 @@ function GeneratedContent({ label, content, onCopy }) {
     );
 }
 
+function isInvalidInput(input) {
+    return !input.trim() || /^\d+$/.test(input); // Checks if input is empty or only contains numbers
+}
+
 function JobApplication() {
     const history = useHistory();
     const [jobTitle, setJobTitle] = useState("");
@@ -35,8 +39,16 @@ function JobApplication() {
     }, [history]);
 
     const handleGenerateContent = async () => {
-        if (!jobTitle || !jobCompany || !jobDescriptionBody) {
-            setError("Please fill in the job title, company, and description fields.");
+        if (isInvalidInput(jobTitle)) {
+            setError("Job title is invalid.");
+            return;
+        }
+        if (isInvalidInput(jobCompany)) {
+            setError("Company name is invalid.");
+            return;
+        }
+        if (isInvalidInput(jobDescriptionBody)) {
+            setError("Job description is invalid.");
             return;
         }
 
