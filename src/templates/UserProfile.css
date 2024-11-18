@@ -175,3 +175,18 @@ body {
   border-color: #f87171;
   color: #f87171;
 }
+
+/* Error and Success Message Styles */
+.error-message {
+  color: #f87171; /* Red color for errors */
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.success-message {
+  color: #22c55e; /* Greenish-blue for success */
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
