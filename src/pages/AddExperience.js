@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../templates/AddExperience.css';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { handleLogOut, redirectIfNotAuthenticated } from "../handlers/authUtils"; // Import the logout function
 import { PATHS } from "../config/pageConfig"; // Import navigation handlers
+import axiosInstance from '../utils/setupInstance';
+import { handleJobApplicationClick } from "../handlers/navigationHandlers";
 
 function AddExperience() {
   const history = useHistory();
@@ -59,7 +60,7 @@ function AddExperience() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
+      const response = await axiosInstance.post('/experiences', data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           withCredentials: true,
@@ -97,7 +98,7 @@ function AddExperience() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
+      const response = await axiosInstance.post('/experiences', data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           withCredentials: true,

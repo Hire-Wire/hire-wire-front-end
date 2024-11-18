@@ -6,7 +6,7 @@ import {
     handleDeleteProfileClick,
 } from "../handlers/userProfileHandlers";
 import { redirectIfNotAuthenticated } from "../handlers/authUtils";
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import NavBar from '../component/NavBar';
 
 function UserProfile() {
@@ -31,7 +31,7 @@ function UserProfile() {
         const fetchUserProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`http://localhost:8000/api/v1/users/${userId}`, {
+                const response = await axiosInstance.get(`/users/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                     withCredentials: true,
                 });
