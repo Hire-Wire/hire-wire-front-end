@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 const Education = ({ experiences, setExperiences, getExperiences }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [ newEducation, setNewEducation ] = useState(false);
+
   // Handle the input changes for both experience and education
 const handleInputChange = (e, index, type, field) => {
   const value = e.target.value;
@@ -60,6 +61,17 @@ const handleInputChange = (e, index, type, field) => {
   const removeEducation = async (index) => {
     const updatedEducation = [...experiences.educations];
     const removedEducation = updatedEducation.splice(index, 1)[0];
+
+    // Check if the removedEducation contains only empty strings
+    const isEmptyEducation = removedEducation &&
+        Object.values(removedEducation).every(value => value === '');
+
+    if (!removedEducation || isEmptyEducation) {
+      setExperiences({ ...experiences, educations: updatedEducation });
+      enqueueSnackbar('Education Deleted', { variant: 'success' });
+      return;
+    }
+
     const data = { id: removedEducation.id }
 
     try {
@@ -70,7 +82,7 @@ const handleInputChange = (e, index, type, field) => {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        withCredentials: true 
+        withCredentials: true
       });
 
       if (response.data.success) {
@@ -84,10 +96,10 @@ const handleInputChange = (e, index, type, field) => {
       enqueueSnackbar('Error deleting employment', { variant: 'error' });
     }
   };
-  
+
   const handleSaveEducationClick = async (index) => {
     const eduData = experiences.educations[index];
-  
+
     // Prepare the data to be sent to the backend
     const data = {
       experienceType: 'Education',
@@ -100,20 +112,20 @@ const handleInputChange = (e, index, type, field) => {
         endDate: eduData.endDate,
       },
     };
-  
+
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       withCredentials: true,
     };
-  
+
     try {
       const apiUrl = 'http://localhost:8000/api/v1/experiences';
       const response = newEducation
         ? await axios.post(apiUrl, data, config)
         : await axios.put(`${apiUrl}/${eduData.experienceId}`, data, config);
-  
+
       if (response.data.success) {
         setNewEducation(false);
         getExperiences();
@@ -125,7 +137,7 @@ const handleInputChange = (e, index, type, field) => {
       enqueueSnackbar('Error saving experience', { variant: 'error' });
     }
   };
-  
+
 
   return (
     <div>
@@ -210,7 +222,7 @@ const handleInputChange = (e, index, type, field) => {
       </button>
     </div>
   );
-  
+
 };
 
 export default Education;
