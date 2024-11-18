@@ -14,9 +14,9 @@ const Experience = () => {
   const [loading, setLoading] = useState(true);
   const [experiences, setExperiences] = useState(null);
 
-  useEffect(() => {
-    redirectIfNotAuthenticated(history, setUserLoggedIn);
-  }, [history]);
+  // useEffect(() => {
+  //   redirectIfNotAuthenticated(history, setUserLoggedIn);
+  // }, [history]);
 
   useEffect(() => {
     getExperiences();

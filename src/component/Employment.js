@@ -7,14 +7,42 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
   const [ newEmployment, setNewEmployment ] = useState(false);
   // Handle the input changes for both experience and education
   const handleInputChange = (e, index, type, field) => {
+    const value = e.target.value;
     const updatedExperience = [...experiences[type]];
-    updatedExperience[index][field] = e.target.value;
+  
+    // For endDate, check if the value is null or a valid date
+    if (field === 'endDate') {
+      if (value === '') {
+        updatedExperience[index][field] = null; // Set endDate to null
+      } else if (new Date(value) > new Date()) {
+        alert('End date cannot be in the future.');
+        return;
+      } else {
+        updatedExperience[index][field] = value; // Valid date
+      }
+    } else {
+      updatedExperience[index][field] = value;
+    }
+
+    // Make sure endDate is not in the future
+    if (field === 'endDate') {
+      const inputDate = new Date(value);
+      const currentDate = new Date();
+      if (inputDate > currentDate) {
+        alert('End date cannot be in the future.');
+        return;
+      }
+      updatedExperience[index][field] = value || null; // Set null if the field is empty
+    } else {
+      updatedExperience[index][field] = value;
+    }
+  
     setExperiences({
       ...experiences,
       [type]: updatedExperience,
     });
   };
-
+  
   // Add new experience
   const addEmployment = () => {
     setExperiences({
@@ -139,6 +167,7 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
                   handleInputChange(e, index, 'employments', 'endDate')
                 }
               />
+              {exp.endDate === null && <span>(Current)</span>}
             </div>
           </div>
           <div className="input-group">
