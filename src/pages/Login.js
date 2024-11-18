@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState, useEffect } from 'react';
 import '../templates/Login.css';
 import { useHistory } from 'react-router-dom';
@@ -18,17 +17,13 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      console.log("User is already authenticated, redirecting to Job Application page.");
       history.replace(PATHS.JOB_APPLICATION); // Redirect to job application page using path from config
     }
   }, [history]);
 
-  // Logging the response data from the frontend before login
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting login form with the following data:");
-    console.log("Email:", email);
-    console.log("Password:", password); // Be cautious with logging passwords in production
     handleLoginClick(e, email, password, setError, history);
   };
 
@@ -58,9 +53,6 @@ function Login() {
             <button type="submit">Log In</button>
             <p className="back-button">
               <button type="button" onClick={() => handleBackClick(history)}>Back</button>
-            </p>
-            <p className="forgot-password">
-              <a href={PATHS.FORGOT_PASSWORD}>Forgot Password?</a> {/* Use PATHS for forgot password link */}
             </p>
           </form>
         </div>

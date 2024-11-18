@@ -12,21 +12,35 @@ function Registration() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // For re-entered password
-  const [error, setError] = useState(""); // To show error messages
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  // Validation Helper Functions
+  const isAlphabetic = (input) => /^[A-Za-z]+$/.test(input); // Ensure input contains only alphabetic characters
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Regex for valid email format
 
   const handleRegistrationClick = async (e) => {
     e.preventDefault();
 
-    // Validation: Check if required fields are filled
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
-      setError("Please fill out all required fields.");
+    // Perform Validation
+    if (!isAlphabetic(firstName)) {
+      setError("Please enter a valid first name.");
       return;
     }
-
-    // Check if passwords match
+    if (!isAlphabetic(lastName)) {
+      setError("Please enter a valid last name.");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
     if (password !== confirmPassword) {
       setError("Passwords do not match. Please re-enter them.");
+      return;
+    }
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
       return;
     }
 
@@ -34,29 +48,22 @@ function Registration() {
       // Data to send to the backend
       const data = { firstName, lastName, email, password };
 
-      console.log("Request data:", data);
-
       // Make the registration request to backend
       const response = await axios.post(
           "http://localhost:8000/api/v1/users/register",
           data,
           {
-            withCredentials: true // Include credentials in the request
+            withCredentials: true, // Include credentials in the request
           }
       );
 
       if (response.status === 201) {
-        console.log(response.data.message); // Success message
-        const { token, userData } = response.data; // Retrieve token and userData from response
-        localStorage.setItem('token', token); // Store token in localStorage
-        localStorage.setItem('userId', userData.id); // Store userID in localStorage
-        console.log("Token stored successfully:", token);
-        console.log("userId stored successfully:", userData.id);
-
-        handleProfileClick(history); // Use navigation handler to redirect to the profile page
+        const { token, userData } = response.data;
+        localStorage.setItem("token", token); // Store token in localStorage
+        localStorage.setItem("userId", userData.id); // Store userId in localStorage
+        handleProfileClick(history); // Redirect to the profile page
       }
     } catch (error) {
-      console.error("Registration error:", error.response ? error.response.data.message : error.message);
       setError(error.response ? error.response.data.message : "Registration failed. Please try again.");
     }
   };
@@ -101,7 +108,7 @@ function Registration() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="error-message">{error}</p>} {/* Display error message */}
             <button type="submit">Register</button>
             <p className="back-button">
               <button type="button" onClick={() => handleBackClick(history)}>Back</button>
