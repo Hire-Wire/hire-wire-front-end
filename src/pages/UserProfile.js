@@ -21,7 +21,7 @@ function UserProfile() {
         lastName: '',
         phoneNumber: null,
         email: '',
-        status: '',
+        jobStatus: '',
     });
 
     useEffect(() => {
@@ -42,7 +42,7 @@ function UserProfile() {
                     lastName: userData.lastName || '',
                     phoneNumber: userData.phoneNumber || null,
                     email: userData.email || '',
-                    status: userData.status || 'Unemployed',
+                    jobStatus: userData.jobStatus || 'Unemployed',
                 });
             } catch (error) {
                 setError(error.response ? error.response.data.message : "Failed to load profile data.");
@@ -81,10 +81,17 @@ function UserProfile() {
 
         setLoading(true);
         try {
+            console.log('Sending profile update request:', {
+                userId,
+                profile,
+                token,
+            });
+
             await handleSaveUserProfileClick(userId, profile, token, setLoading, setError);
             setSuccessMessage("Profile saved successfully!");
             setTimeout(() => setSuccessMessage(""), 3000);
         } catch (err) {
+            console.error('Error during profile update request:', err);
             setError("Failed to save profile.");
         } finally {
             setLoading(false);
@@ -97,8 +104,14 @@ function UserProfile() {
         setSuccessMessage("");
 
         try {
+            console.log('Sending delete profile request:', {
+                userId,
+                token,
+            });
+
             await handleDeleteProfileClick(userId, token, history, setLoading, setError);
         } catch (err) {
+            console.error('Error during delete profile request:', err);
             setError("Failed to delete profile.");
         } finally {
             setLoading(false);
@@ -159,8 +172,8 @@ function UserProfile() {
                         <div className="input-group">
                             <label>Status</label>
                             <select
-                                value={profile.status}
-                                onChange={(e) => setProfile({ ...profile, status: e.target.value })}
+                                value={profile.jobStatus}
+                                onChange={(e) => setProfile({ ...profile, jobStatus: e.target.value })}
                             >
                                 <option value="" disabled>Select Status</option>
                                 <option value="Employed">Employed</option>

@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 const Employment = ({ experiences, setExperiences, getExperiences }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [ newEmployment, setNewEmployment ] = useState(false);
+
   // Handle the input changes for both experience and education
   const handleInputChange = (e, index, type, field) => {
     const updatedExperience = [...experiences[type]];
@@ -27,11 +28,23 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
     setNewEmployment(true);
   };
 
-  // Remove an experience entry
   const removeEmployment = async (index) => {
+
+    // Copy and remove the employment entry from the local state
     const updatedExperience = [...experiences.employments];
     const removedEmployment = updatedExperience.splice(index, 1)[0];
-    const data = { id: removedEmployment.id }
+
+    // Check if the removedEmployment contains any data
+    const isEmptyEmployment = removedEmployment &&
+        Object.values(removedEmployment).every(value => value === '');
+
+    if (!removedEmployment || isEmptyEmployment) {
+      setExperiences({ ...experiences, employments: updatedExperience });
+      enqueueSnackbar('Employment Deleted', { variant: 'success' });
+      return;
+    }
+
+    const data = { id: removedEmployment.id };
 
     try {
       const response = await axiosInstance.delete(
@@ -46,15 +59,17 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
 
       if (response.data.success) {
         setExperiences({ ...experiences, employments: updatedExperience });
-        getExperiences()
+        getExperiences();
         enqueueSnackbar('Employment Deleted', { variant: 'success' });
       } else {
         enqueueSnackbar('Failed to delete employment', { variant: 'error' });
       }
-    } catch {
+    } catch (error) {
       enqueueSnackbar('Error deleting employment', { variant: 'error' });
     }
   };
+
+
 
   const handleSaveEmploymentExperienceClick = async (index) => {
     const expData = experiences.employments[index];
@@ -77,7 +92,7 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
       },
       withCredentials: true,
     };
-  
+
 
     try {
       const apiUrl = '/experiences';
