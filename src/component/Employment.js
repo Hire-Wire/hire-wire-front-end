@@ -15,7 +15,7 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
     if (field === 'endDate') {
       if (value === '') {
         updatedExperience[index][field] = null; // Set endDate to null
-      } else if (new Date(value) > getLocalDate()) {
+      } else if (new Date(value) > new Date(getLocalDate())) {
         alert('End date cannot be in the future.');
         updatedExperience[index][field] = getLocalDate();
         return;
