@@ -8,10 +8,21 @@ function Landing() {
 
     return (
         <div className="landing-container">
+            <nav className="navbar">
+                <div className="logo">
+                    <img src="/path/to/logo.png" alt="Hire Wire Logo" className="logo-image" />
+                    <h1 className="logo-text">Hire Wire</h1>
+                </div>
+                <div className="nav-buttons">
+                    <button className="login-button" onClick={() => handleLoginClick(history)}>Log In</button>
+                    <button className="register-button" onClick={() => handleRegistrationClick(history)}>Register</button>
+                </div>
+            </nav>
             <div className="how-it-works">
-            <h1>Hire Wire</h1>
                 <h2>How It Works</h2>
-                <h3>Easily Create Tailored Resumes And Cover Letters That Capture <span>Your Unique Strengths</span> For Each Job Application</h3>
+                <h3>
+                    Easily Create Tailored Resumes And Cover Letters That Capture <span>Your Unique Strengths</span> For Each Job Application
+                </h3>
                 <div className="steps">
                     <div className="step">
                         <div className="step-number">01</div>
@@ -28,11 +39,6 @@ function Landing() {
                         <h4>Generate and Download</h4>
                         <p>Get a professional resume and cover letter in seconds. Ready to apply!</p>
                     </div>
-                </div>
-                
-                <div className="button-group">
-                <button className="login-button" onClick={() => handleLoginClick(history)}>Log In</button>
-                <button className="register-button" onClick={() => handleRegistrationClick(history)}>Register</button>
                 </div>
             </div>
         </div>

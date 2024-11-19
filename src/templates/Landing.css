@@ -1,48 +1,53 @@
-/* Landing.css */
-
+/* General Styling */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url('../login_images/login_page.jpg') no-repeat center center fixed;
+  background: linear-gradient(135deg, #6a0dad, #1e90ff); /* Purple to blue gradient */
 }
 
-.landing-container {
+/* Navbar Styling */
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  padding: 1rem 2rem;
+  background-color: rgba(28, 28, 43, 0.9); /* Dark semi-transparent background */
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  text-align: center;
-  padding: 2rem 1rem;
-  background: url('../login_images/login_page.png') no-repeat center center fixed;
-  background-size: cover;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-.landing-container h1 {
-  font-size: 3rem;
-  color: #F6F7EB;
-  margin-bottom: 2rem;
-}
-
-.button-group {
+.logo {
   display: flex;
-  flex-direction: row; /* Horizontal alignment */
-  justify-content: center;
   align-items: center;
-  gap: 1rem; /* Space between buttons */
-  margin-top: 3rem;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
 }
 
 .login-button, .register-button {
-  width: 200px;
-  padding: 1rem 0;
-  border-radius: 30px;
-  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: bold;
   border: none;
   cursor: pointer;
@@ -51,7 +56,7 @@ body {
 
 .login-button {
   background-color: #3B82F6;
-  color: #F6F7EB;
+  color: #ffffff;
 }
 
 .login-button:hover {
@@ -60,13 +65,26 @@ body {
 
 .register-button {
   background-color: #333333;
-  color: #F6F7EB;
+  color: #ffffff;
 }
 
 .register-button:hover {
   background-color: #444444;
 }
 
+/* Landing Container */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  padding-top: 5rem; /* Space for navbar */
+}
+
+/* How It Works Section */
 .how-it-works {
   text-align: center;
   color: #F6F7EB;
@@ -78,22 +96,7 @@ body {
   margin-top: 2rem;
 }
 
-.how-it-works h2 {
-  color: #ffe06f;
-  margin-bottom: 1rem;
-  font-size: 2rem;
-}
-
-.how-it-works h3 {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.how-it-works h3 span {
-  color: #ffe06f;
-  font-weight: bold;
-}
-
+/* Steps Section */
 .steps {
   display: flex;
   justify-content: space-around;
@@ -105,59 +108,27 @@ body {
   background-color: #282840;
   padding: 1rem;
   border-radius: 8px;
-  flex: 1 1 calc(33% - 2rem); /* Adjust width for mobile */
+  flex: 1 1 calc(33% - 2rem);
   max-width: 300px;
   text-align: center;
   color: #F6F7EB;
-  margin: 0.5rem;
-}
-
-.step-number {
-  background-color: #ffe06f;
-  color: #1c1c2b;
-  font-size: 1.5rem;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem auto;
-}
-
-.step h4 {
-  margin-bottom: 0.5rem;
-  color: #ffffff;
-}
-
-.step p {
-  font-size: 0.9rem;
-  color: #d3d3d3;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .landing-container h1 {
-    font-size: 2rem;
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .button-group {
-    flex-direction: column; /* Stack buttons vertically */
+  .nav-buttons {
+    flex-direction: row;
     gap: 0.5rem;
   }
 
-  .login-button, .register-button {
-    width: 100%;
-    max-width: 250px;
-  }
-
-  .how-it-works h2 {
-    font-size: 1.5rem;
-  }
-
-  .how-it-works h3 {
-    font-size: 1rem;
+  .landing-container {
+    padding-top: 7rem;
   }
 
   .steps {
@@ -166,31 +137,6 @@ body {
   }
 
   .step {
-    flex: 1 1 100%;
     max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .landing-container {
-    padding: 1rem;
-  }
-
-  .landing-container h1 {
-    font-size: 1.5rem;
-  }
-
-  .step-number {
-    width: 2rem;
-    height: 2rem;
-    font-size: 1.2rem;
-  }
-
-  .step h4 {
-    font-size: 0.9rem;
-  }
-
-  .step p {
-    font-size: 0.8rem;
   }
 }
