@@ -71,3 +71,17 @@ export const redirectIfNotAuthenticated = (history, setLoading) => {
     }, 100); // optional delay
 };
 
+export const redirectIfAuthenticated = (history, redirectPath, setLoading) => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+    if (token) {
+        console.log("Token found. Redirecting to", redirectPath);
+        history.replace(redirectPath); // Redirect to the specified path
+    } else {
+        console.log("No token found. User is not authenticated.");
+    }
+
+    if (setLoading) {
+        setLoading(false); // Stop the loading state if provided
+    }
+};
