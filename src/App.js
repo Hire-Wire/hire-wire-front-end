@@ -13,35 +13,36 @@ import NetworkStatus from "./component/NetworkStatus";
 import { PATHS } from './config/pageConfig'; // Import PATHS
 
 function App() {
+
   return (
-      <Router basename="/hire-wire-front-end">
-        <NetworkStatus />
-        <Switch>
-          <Route exact path={PATHS.HOME}>
-            <Landing />
-          </Route>
-          <Route exact path={PATHS.LOGIN}>
-            <Login />
-          </Route>
-          <Route exact path={PATHS.USER_PROFILE}>
-            <UserProfile />
-          </Route>
-          <Route exact path={PATHS.EXPERIENCE}>
-            <Experience />
-          </Route>
-          <Route exact path={PATHS.ADDEXPERIENCE}>
-            <AddExperience />
-          </Route>
-          <Route exact path={PATHS.JOB_APPLICATION}>
-            <JobApplication />
-          </Route>
-          <Route exact path={PATHS.REGISTRATION}>
-            <Registration />
-          </Route>
-          <Route exact path={PATHS.ERROR}>
-            <Error />
-          </Route>
-        </Switch>
+      <Router basename="/">
+          <NetworkStatus />
+          <Switch>
+            <Route exact path={PATHS.HOME}>
+              <Landing />
+            </Route>
+            <Route exact path={PATHS.LOGIN}>
+              <Login />
+            </Route>
+            <Route exact path={PATHS.USER_PROFILE}>
+              <UserProfile />
+            </Route>
+            <Route exact path={PATHS.EXPERIENCE}>
+              <Experience />
+            </Route>
+            <Route exact path={PATHS.ADDEXPERIENCE}>
+              <AddExperience />
+            </Route>
+            <Route exact path={PATHS.JOB_APPLICATION}>
+              <JobApplication />
+            </Route>
+            <Route exact path={PATHS.REGISTRATION}>
+              <Registration />
+            </Route>
+            <Route exact path={PATHS.ERROR}>
+              <Error />
+            </Route>
+          </Switch>
       </Router>
   );
 }

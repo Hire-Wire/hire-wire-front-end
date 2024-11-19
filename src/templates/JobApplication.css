@@ -3,7 +3,7 @@ body {
   background-color: #1d1d1d;
   color: white;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   height: 100vh;
   margin: 0;
@@ -11,8 +11,8 @@ body {
 
 .application-container {
   width: 100%;
-  max-width: 1000px;
-  margin: 20px auto;
+  max-width: 800px;
+  margin: auto;
   padding: 0px;
   background-color: #333;
   border-radius: 10px;
