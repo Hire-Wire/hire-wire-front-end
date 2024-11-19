@@ -92,6 +92,7 @@ const handleInputChange = (e, index, type, field) => {
       experienceType: 'Education',
       organizationName: eduData.organizationName,
       education: {
+        id: eduData.id,
         degree: eduData.degree,
         fieldOfStudy: eduData.fieldOfStudy,
         grade: eduData.grade,
