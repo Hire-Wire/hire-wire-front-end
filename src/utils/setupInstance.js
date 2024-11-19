@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const APP_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8000/api/v1/';
+const APP_URL = process.env.REACT_APP_BASE_URL 
+|| 'https://hire-wire-859928566841.northamerica-northeast2.run.app/api/v1/';
 
 const instance = axios.create({
   baseURL: APP_URL,
