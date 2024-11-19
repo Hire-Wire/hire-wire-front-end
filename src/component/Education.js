@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import { useSnackbar } from 'notistack';
 
 const Education = ({ experiences, setExperiences, getExperiences }) => {
@@ -46,8 +46,8 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
     const data = { id: removedEducation.id }
 
     try {
-      const response = await axios.delete(
-        `http://localhost:8000/api/v1/experiences/${removedEducation.experienceId}`,
+      const response = await axiosInstance.delete(
+        `/experiences/${removedEducation.experienceId}`,
       {
         data,
         headers: {
@@ -92,11 +92,11 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
     };
 
     try {
-      const apiUrl = 'http://localhost:8000/api/v1/experiences';
+      const apiUrl = '/experiences';
       const response = newEducation
-        ? await axios.post(apiUrl, data, config)
-        : await axios.put(`${apiUrl}/${eduData.experienceId}`, data, config);
-
+        ? await axiosInstance.post(apiUrl, data, config)
+        : await axiosInstance.put(`${apiUrl}/${eduData.experienceId}`, data, config);
+      
       if (response.data.success) {
         setNewEducation(false);
         getExperiences();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from '../utils/setupInstance';
 import { useHistory } from 'react-router-dom';
 import NavBar from "../component/NavBar";
 import Education from "../component/Education";
@@ -24,7 +24,7 @@ const Experience = () => {
 
   const getExperiences = async () => {
     try {
-      const experienceList = await axios.get('http://localhost:8000/api/v1/experiences', {
+      const experienceList = await axiosInstance.get('/experiences', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         withCredentials: true,
       });

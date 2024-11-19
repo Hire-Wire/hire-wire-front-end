@@ -1,11 +1,11 @@
 // ./handlers/logout.js
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import {PATHS} from "../config/pageConfig";
 
 export const handleLogOut = async (history) => {
     try {
-        const response = await axios.post(
-            'http://localhost:8000/api/v1/users/logout',
+        const response = await axiosInstance.post(
+            '/users/logout',
             {},
             {
                 headers: {
@@ -32,8 +32,8 @@ export const handleLoginClick = async (e, email, password, setError, history) =>
     try {
         const data = { email, password };
 
-        const response = await axios.post(
-            "http://localhost:8000/api/v1/users/login",
+        const response = await axiosInstance.post(
+            "/users/login",
             data,
             {
                 withCredentials: true // Include credentials in the request
