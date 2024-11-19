@@ -12,7 +12,7 @@ const Experience = () => {
   const history = useHistory();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [experiences, setExperiences] = useState(null);
+  const [experiences, setExperiences] = useState({ employments: [], educations: [] });
 
   useEffect(() => {
     redirectIfNotAuthenticated(history, setUserLoggedIn);
@@ -28,6 +28,7 @@ const Experience = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         withCredentials: true,
       });
+      console.log(experienceList.data.experiences)
       const formatedExperience = formatExperience(experienceList.data.experiences);
       setLoading(false);
       setExperiences(formatedExperience);

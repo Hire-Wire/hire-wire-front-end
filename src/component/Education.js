@@ -7,14 +7,31 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
   const [ newEducation, setNewEducation ] = useState(false);
 
   // Handle the input changes for both experience and education
-  const handleInputChange = (e, index, type, field) => {
-    const updatedExperience = [...experiences[type]];
-    updatedExperience[index][field] = e.target.value;
-    setExperiences({
-      ...experiences,
-      [type]: updatedExperience,
-    });
-  };
+const handleInputChange = (e, index, type, field) => {
+  const value = e.target.value;
+  const updatedExperience = [...experiences[type]];
+
+  // For endDate, check if the value is null or a valid date
+  if (field === 'endDate') {
+    if (value === '') {
+      updatedExperience[index][field] = null; // Set endDate to null
+    } else if (new Date(value) > getLocalDate()) {
+      alert('End date cannot be in the future.');
+      updatedExperience[index][field] = getLocalDate();
+      return;
+    } else {
+      updatedExperience[index][field] = value; // Valid date
+    }
+  } else {
+    updatedExperience[index][field] = value;
+  }
+
+  setExperiences({
+    ...experiences,
+    [type]: updatedExperience,
+  });
+};
+
 
   // Add new education
   const addEducation = () => {
@@ -109,6 +126,14 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
     }
   };
 
+  const getLocalDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
 
   return (
     <div>
@@ -140,11 +165,12 @@ const Education = ({ experiences, setExperiences, getExperiences }) => {
               <label>End Date</label>
               <input
                 type="date"
-                value={edu.endDate}
+                value={edu.endDate || ""}
                 onChange={(e) =>
                   handleInputChange(e, index, 'educations', 'endDate')
                 }
               />
+              {(edu.endDate === null || edu.endDate === "") && <span>(Current)</span>}
             </div>
           </div>
           <div className="input-group">
