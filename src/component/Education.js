@@ -32,7 +32,6 @@ const handleInputChange = (e, index, type, field) => {
   });
 };
 
-
   // Add new education
   const addEducation = () => {
     setExperiences({

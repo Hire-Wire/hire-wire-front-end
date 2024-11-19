@@ -25,20 +25,7 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
     } else {
       updatedExperience[index][field] = value;
     }
-
-    // Make sure endDate is not in the future
-    if (field === 'endDate') {
-      const inputDate = new Date(value);
-      const currentDate = new Date();
-      if (inputDate > currentDate) {
-        alert('End date cannot be in the future.');
-        return;
-      }
-      updatedExperience[index][field] = value || null; // Set null if the field is empty
-    } else {
-      updatedExperience[index][field] = value;
-    }
-  
+    
     setExperiences({
       ...experiences,
       [type]: updatedExperience,
