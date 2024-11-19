@@ -13,7 +13,7 @@ const formatExperience = (experiences) => {
                   jobTitle: employment.jobTitle,
                   organizationName: experience.organizationName,
                   startDate: employment.startDate.split("T")[0],
-                  endDate: employment.endDate.split("T")[0],
+                  endDate: employment.endDate ? employment.endDate.split("T")[0] : "", // Handle null
                   jobDescription: employment.jobDescription,
               });
           });
@@ -24,7 +24,7 @@ const formatExperience = (experiences) => {
                   id: education.id,
                   organizationName: experience.organizationName,
                   startDate: education.startDate.split("T")[0],
-                  endDate: education.endDate.split("T")[0],
+                  endDate: education.endDate ? education.endDate.split("T")[0] : "", // Handle null
                   fieldOfStudy: education.fieldOfStudy,
                   grade: `${education.grade}/4.0`,
                   degree: education.degree,

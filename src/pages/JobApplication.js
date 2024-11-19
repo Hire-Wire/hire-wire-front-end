@@ -55,7 +55,7 @@ function JobApplication() {
         try {
             setError("");
             setLoading(true);
-            setCountdown(11); // Set the countdown to 11 seconds
+            setCountdown(15); // Set the countdown to 15 seconds
 
             // Start the countdown timer
             const countdownInterval = setInterval(() => {

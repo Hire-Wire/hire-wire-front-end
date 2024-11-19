@@ -15,8 +15,9 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
     if (field === 'endDate') {
       if (value === '') {
         updatedExperience[index][field] = null; // Set endDate to null
-      } else if (new Date(value) > new Date()) {
+      } else if (new Date(value) > getLocalDate()) {
         alert('End date cannot be in the future.');
+        updatedExperience[index][field] = getLocalDate();
         return;
       } else {
         updatedExperience[index][field] = value; // Valid date
@@ -141,6 +142,14 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
     }
   };
 
+  const getLocalDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <div>
       <h2>Employment Experience</h2>
@@ -179,12 +188,12 @@ const Employment = ({ experiences, setExperiences, getExperiences }) => {
               <label>End Date</label>
               <input
                 type="date"
-                value={exp.endDate}
+                value={exp.endDate || ""}
                 onChange={(e) =>
                   handleInputChange(e, index, 'employments', 'endDate')
                 }
               />
-              {exp.endDate === null && <span>(Current)</span>}
+              {(exp.endDate === null || exp.endDate === "") && <span>(Current)</span>}
             </div>
           </div>
           <div className="input-group">

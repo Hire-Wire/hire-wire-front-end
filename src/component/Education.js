@@ -15,25 +15,13 @@ const handleInputChange = (e, index, type, field) => {
   if (field === 'endDate') {
     if (value === '') {
       updatedExperience[index][field] = null; // Set endDate to null
-    } else if (new Date(value) > new Date()) {
+    } else if (new Date(value) > getLocalDate()) {
       alert('End date cannot be in the future.');
+      updatedExperience[index][field] = getLocalDate();
       return;
     } else {
       updatedExperience[index][field] = value; // Valid date
     }
-  } else {
-    updatedExperience[index][field] = value;
-  }
-
-  // Make sure endDate is not in the future
-  if (field === 'endDate') {
-    const inputDate = new Date(value);
-    const currentDate = new Date();
-    if (inputDate > currentDate) {
-      alert('End date cannot be in the future.');
-      return;
-    }
-    updatedExperience[index][field] = value || null; // Set null if the field is empty
   } else {
     updatedExperience[index][field] = value;
   }
@@ -138,6 +126,14 @@ const handleInputChange = (e, index, type, field) => {
     }
   };
 
+  const getLocalDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
 
   return (
     <div>
@@ -169,12 +165,12 @@ const handleInputChange = (e, index, type, field) => {
               <label>End Date</label>
               <input
                 type="date"
-                value={edu.endDate}
+                value={edu.endDate || ""}
                 onChange={(e) =>
                   handleInputChange(e, index, 'educations', 'endDate')
                 }
               />
-              {edu.endDate === null && <span>(Current)</span>}
+              {(edu.endDate === null || edu.endDate === "") && <span>(Current)</span>}
             </div>
           </div>
           <div className="input-group">
