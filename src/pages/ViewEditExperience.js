@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import '../templates/ViewEditExperience.css';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import {handleLogOut, redirectIfNotAuthenticated} from "../handlers/authUtils"; // Import the logout function
 import { handleJobApplicationClick } from "../handlers/navigationHandlers";
 import {PATHS} from "../config/pageConfig"; // Import navigation handlers
@@ -92,7 +92,7 @@ function ViewEditExperience() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
+      const response = await axiosInstance.post('/experiences', data, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Include auth token if necessary
             withCredentials: true // include credentials in the request
@@ -137,7 +137,7 @@ function ViewEditExperience() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/experiences', data, {
+      const response = await axiosInstance.post('/experiences', data, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Include auth token if necessary
             withCredentials: true // include credentials in the request

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../templates/JobApplication.css';
 import { useHistory } from 'react-router-dom';
 import { redirectIfNotAuthenticated } from "../handlers/authUtils";
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import NavBar from "../component/NavBar";
 import { copyToClipboard } from '../handlers/copyUtils';
 
@@ -68,8 +68,8 @@ function JobApplication() {
             }, 1000);
 
             const token = localStorage.getItem('token');
-            const response = await axios.post(
-                "http://localhost:8000/api/v1/job-application/generate-content",
+            const response = await axiosInstance.post(
+                "/job-application/generate-content",
                 { jobTitle, jobCompany, jobDescriptionBody, customPrompt },
                 {
                     headers: { Authorization: `Bearer ${token}` },

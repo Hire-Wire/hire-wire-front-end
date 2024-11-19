@@ -1,10 +1,6 @@
 // handlers/userProfileHandlers.js
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import {PATHS} from "../config/pageConfig";
-
-// Define the backend URL
-const BACKEND_URL = 'http://localhost:8000'; 
-
 
 /**
  * Handles saving user profile changes.
@@ -18,7 +14,7 @@ export const handleSaveUserProfileClick = async (userId, profile, token, setLoad
     setLoading(true);
     try {       
 
-        const response = await axios.put(`${BACKEND_URL}/api/v1/users/${userId}`, profile, {
+        const response = await axiosInstance.put(`/users/${userId}`, profile, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -59,7 +55,7 @@ export const handleDeleteProfileClick = async (userId, token, history, setLoadin
 
     setLoading(true);
     try {
-        await axios.delete(`${BACKEND_URL}/api/v1/users/${userId}`, {
+        await axiosInstance.delete(`/users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 withCredentials: true,

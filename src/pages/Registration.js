@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../templates/Registration.css';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../utils/setupInstance';
 import { handleBackClick, handleProfileClick } from "../handlers/navigationHandlers";
 
 function Registration() {
@@ -49,8 +49,8 @@ function Registration() {
       const data = { firstName, lastName, email, password };
 
       // Make the registration request to backend
-      const response = await axios.post(
-          "http://localhost:8000/api/v1/users/register",
+      const response = await axiosInstance.post(
+          "/users/register",
           data,
           {
             withCredentials: true, // Include credentials in the request
