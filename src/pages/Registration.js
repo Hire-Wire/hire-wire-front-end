@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../templates/Registration.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { handleBackClick, handleProfileClick } from "../handlers/navigationHandlers";
+import {redirectIfAuthenticated} from "../handlers/authUtils";
+import {PATHS} from "../config/pageConfig";
 
 function Registration() {
   const history = useHistory();
+  const [loading, setLoading] = useState(true); // Initialize loading state
+
+  useEffect(() => {
+    redirectIfAuthenticated(history,PATHS.JOB_APPLICATION,  setLoading);
+  }, [history]);
 
   // State for each input field
   const [firstName, setFirstName] = useState("");
