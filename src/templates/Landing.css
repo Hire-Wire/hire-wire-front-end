@@ -1,32 +1,55 @@
 /* Landing.css */
 
+/* Body CSS */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url('../login_images/login_page.jpg') no-repeat center center fixed;
+  background: linear-gradient(135deg, #5182bd, #a04dd3, #4f5599); /* Dark purple to blue to black */
+  background-size: cover; /* Cover the entire viewport */
+  background-attachment: fixed; /* Fix the gradient to the viewport */
+  height: 100%; /* Ensures the body height covers the viewport */
+  color: #ffffff; /* Adjust text color for better visibility */
 }
 
+/* Updated Landing Container CSS */
 .landing-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  min-height: 100vh; /* Ensures the container spans the full viewport height */
   text-align: center;
   padding: 2rem 1rem;
-  background: url('../login_images/login_page.png') no-repeat center center fixed;
-  background-size: cover;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .landing-container h1 {
   font-size: 3rem;
   color: #F6F7EB;
   margin-bottom: 2rem;
+}
+
+.AppBar {
+  position: sticky; /* Keeps the nav bar at the top */
+  top: 0;
+  z-index: 1000; /* Ensures it stays above other content */
+  margin: 10px 10px 0;
+  background-color: #1c1c2b; /* Ensure consistent color */
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .button-group {
@@ -39,14 +62,21 @@ body {
 }
 
 .login-button, .register-button {
-  width: 200px;
-  padding: 1rem 0;
-  border-radius: 30px;
-  font-size: 1rem;
-  font-weight: bold;
+  background-color: #701a75;
+  color: #ffffff;
   border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.8), 0 0 20px rgba(255, 105, 180, 0.6); /* Glow effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-button:hover, .register-button:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 0 20px rgba(255, 105, 180, 1), 0 0 30px rgba(255, 105, 180, 0.8); /* Stronger glow on hover */
 }
 
 .login-button {
@@ -54,86 +84,91 @@ body {
   color: #F6F7EB;
 }
 
-.login-button:hover {
-  background-color: #2563EB;
-}
-
 .register-button {
   background-color: #333333;
   color: #F6F7EB;
 }
 
-.register-button:hover {
-  background-color: #444444;
-}
-
 .how-it-works {
   text-align: center;
-  color: #F6F7EB;
-  background-color: rgba(28, 28, 43, 0.8);
   padding: 2rem;
-  border-radius: 15px;
-  width: 90%;
+  margin: 2rem auto;
   max-width: 1200px;
-  margin-top: 2rem;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.how-it-works h2 {
-  color: #ffe06f;
-  margin-bottom: 1rem;
-  font-size: 2rem;
-}
-
-.how-it-works h3 {
-  font-size: 1.25rem;
+.how-it-works-header {
   margin-bottom: 2rem;
 }
 
-.how-it-works h3 span {
-  color: #ffe06f;
+.how-it-works-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1c1c2b;
+}
+
+.how-it-works-header h2 {
+  font-size: 2rem;
+  color: #3B82F6;
+  margin-bottom: 1rem;
+}
+
+.how-it-works-header p {
+  font-size: 1.25rem;
+  color: #333333;
+}
+
+.how-it-works-header span {
+  color: #3B82F6;
   font-weight: bold;
 }
 
-.steps {
+.how-it-works-cards {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.step {
-  background-color: #282840;
-  padding: 1rem;
-  border-radius: 8px;
-  flex: 1 1 calc(33% - 2rem); /* Adjust width for mobile */
+.card {
+  flex: 1 1 calc(33% - 1rem);
   max-width: 300px;
-  text-align: center;
-  color: #F6F7EB;
-  margin: 0.5rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.step-number {
-  background-color: #ffe06f;
-  color: #1c1c2b;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  margin: 0 auto 1rem auto;
+  background: #3B82F6;
+  color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
   border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem auto;
+  text-align: center;
 }
 
-.step h4 {
+.card-content h3 {
+  font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: #1c1c2b;
 }
 
-.step p {
-  font-size: 0.9rem;
-  color: #d3d3d3;
+.card-content p {
+  font-size: 1rem;
+  color: #555555;
 }
 
 /* Responsive Design */
