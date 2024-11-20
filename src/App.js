@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from './pages/Landing';
@@ -16,33 +15,37 @@ function App() {
 
   return (
       <Router basename="/">
-          <NetworkStatus />
-          <Switch>
-            <Route exact path={PATHS.HOME}>
-              <Landing />
-            </Route>
-            <Route exact path={PATHS.LOGIN}>
-              <Login />
-            </Route>
-            <Route exact path={PATHS.USER_PROFILE}>
-              <UserProfile />
-            </Route>
-            <Route exact path={PATHS.EXPERIENCE}>
-              <Experience />
-            </Route>
-            <Route exact path={PATHS.ADDEXPERIENCE}>
-              <AddExperience />
-            </Route>
-            <Route exact path={PATHS.JOB_APPLICATION}>
-              <JobApplication />
-            </Route>
-            <Route exact path={PATHS.REGISTRATION}>
-              <Registration />
-            </Route>
-            <Route exact path={PATHS.ERROR}>
-              <Error />
-            </Route>
-          </Switch>
+        <NetworkStatus />
+        <Switch>
+          <Route exact path={PATHS.HOME}>
+            <Landing />
+          </Route>
+          <Route exact path={PATHS.LOGIN}>
+            <Login />
+          </Route>
+          <Route exact path={PATHS.USER_PROFILE}>
+            <UserProfile />
+          </Route>
+          <Route exact path={PATHS.EXPERIENCE}>
+            <Experience />
+          </Route>
+          <Route exact path={PATHS.ADDEXPERIENCE}>
+            <AddExperience />
+          </Route>
+          <Route exact path={PATHS.JOB_APPLICATION}>
+            <JobApplication />
+          </Route>
+          <Route exact path={PATHS.REGISTRATION}>
+            <Registration />
+          </Route>
+          <Route exact path={PATHS.ERROR}>
+            <Error />
+          </Route>
+          {/* Catch-all route for undefined paths */}
+          <Route>
+            <Error />
+          </Route>
+        </Switch>
       </Router>
   );
 }
