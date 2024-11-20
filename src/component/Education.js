@@ -85,7 +85,16 @@ const handleInputChange = (e, index, type, field) => {
   };
 
   const handleSaveEducationClick = async (index) => {
+
     const eduData = experiences.educations[index];
+    if (
+        isNaN(eduData.grade) || // Check if it's not a number
+        eduData.grade <= 0 ||   // Check if it's less than or equal to 0
+        eduData.grade > 100     // Check if it's greater than 100
+    ) {
+      alert('Grade must be a number between 0 and 100.');
+      return; // Stop execution if validation fails
+    }
 
     // Prepare the data to be sent to the backend
     const data = {
@@ -113,7 +122,7 @@ const handleInputChange = (e, index, type, field) => {
       const response = newEducation
         ? await axiosInstance.post(apiUrl, data, config)
         : await axiosInstance.put(`${apiUrl}/${eduData.experienceId}`, data, config);
-      
+
       if (response.data.success) {
         setNewEducation(false);
         getExperiences();
