@@ -1,62 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import '../templates/Login.css';
-import { useHistory } from 'react-router-dom';
-import { handleLoginClick } from "../handlers/authUtils"; // Import the login handler
-import { handleBackClick } from "../handlers/navigationHandlers"; // Import the navigation handler
-import { PATHS } from '../config/pageConfig'; // Import PATHS
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { Box, Button, TextField, Typography, Link } from "@mui/material";
+import { handleLoginClick } from "../handlers/authUtils";
+import { handleBackClick } from "../handlers/navigationHandlers";
+import { PATHS } from "../config/pageConfig";
 
 function Login() {
   const history = useHistory();
-
-  // State for email and password fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // To display login errors
+  const [error, setError] = useState("");
 
-  // Redirect to /jobapplication if the user is already authenticated
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      history.replace(PATHS.JOB_APPLICATION); // Redirect to job application page using path from config
+      history.replace(PATHS.JOB_APPLICATION);
     }
   }, [history]);
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLoginClick(e, email, password, setError, history);
   };
 
   return (
-      <div className="login-container">
-        <div className="login-box">
-          <h1>Welcome!</h1>
-          <form onSubmit={handleSubmit}>
-            <label>Email</label>
-            <input
-                type="text"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <label>Password</label>
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-
-            {error && <p className="error-message">{error}</p>} {/* Display error message if there's an error */}
-
-            <button type="submit">Log In</button>
-            <p className="back-button">
-              <button type="button" onClick={() => handleBackClick(history)}>Back</button>
-            </p>
-          </form>
-        </div>
-      </div>
+      <Box
+        sx={{
+          maxWidth: 400,
+          width: "100%",
+          backgroundColor: "white",
+          padding: 4,
+          borderRadius: 2,
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Typography variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: "bold" }}>
+          Sign In
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ marginBottom: 2 }}
+          />
+          <Typography variant="body2" sx={{ textAlign: "right", marginBottom: 2 }}>
+            <Link href="#" underline="hover">
+              Forgot your password?
+            </Link>
+          </Typography>
+          {error && (
+            <Typography variant="body2" color="error" align="center" sx={{ marginBottom: 2 }}>
+              {error}
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              backgroundColor: "#1976D2",
+              "&:hover": { backgroundColor: "#1565C0" },
+              marginBottom: 2,
+            }}
+          >
+            Log In
+          </Button>
+          <Button
+            type="button"
+            variant="outlined"
+            fullWidth
+            onClick={() => handleBackClick(history)}
+            sx={{
+              borderColor: "#1976D2",
+              color: "#1976D2",
+              "&:hover": { backgroundColor: "#E3F2FD", borderColor: "#1565C0" },
+            }}
+          >
+            Back
+          </Button>
+        </form>
+      </Box>
   );
 }
 

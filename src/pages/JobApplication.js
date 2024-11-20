@@ -1,20 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import '../templates/JobApplication.css';
+import { AppBar, Toolbar, Typography, Box, Button, TextField, Link } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { redirectIfNotAuthenticated } from "../handlers/authUtils";
 import axiosInstance from '../utils/setupInstance';
-import NavBar from "../component/NavBar";
 import { copyToClipboard } from '../handlers/copyUtils';
 
-function GeneratedContent({ label, content, onCopy }) {
+function GeneratedContent({ title, content, onCopy }) {
     return (
-        <div className="generated-content">
-            <label>
-                {label}
-                <button onClick={onCopy} className="copy-button">Copy Text</button>
-            </label>
-            <textarea readOnly value={content} className="generated-textarea"></textarea>
-        </div>
+        <Box sx={{ marginBottom: 4 }}>
+            <Typography variant="h6" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                {title}
+            </Typography>
+            <TextField
+                variant="outlined"
+                multiline
+                fullWidth
+                value={content}
+                InputProps={{
+                    readOnly: true,
+                }}
+                sx={{ marginBottom: 2, backgroundColor: '#f5f5f5', borderRadius: 1 }}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                    variant="outlined"
+                    onClick={onCopy}
+                    sx={{
+                        fontSize: '0.9rem',
+                        textTransform: 'none',
+                    }}
+                >
+                    Copy Text
+                </Button>
+            </Box>
+        </Box>
     );
 }
 
@@ -39,30 +58,19 @@ function JobApplication() {
     }, [history]);
 
     const handleGenerateContent = async () => {
-        if (isInvalidInput(jobTitle)) {
-            setError("Job title is invalid.");
-            return;
-        }
-        if (isInvalidInput(jobCompany)) {
-            setError("Company name is invalid.");
-            return;
-        }
-        if (isInvalidInput(jobDescriptionBody)) {
-            setError("Job description is invalid.");
+        if (isInvalidInput(jobTitle) || isInvalidInput(jobCompany) || isInvalidInput(jobDescriptionBody)) {
+            setError("All required fields must be filled in with valid data.");
             return;
         }
 
         try {
             setError("");
             setLoading(true);
-            setCountdown(15); // Set the countdown to 15 seconds
+            setCountdown(15);
 
-            // Start the countdown timer
             const countdownInterval = setInterval(() => {
                 setCountdown((prev) => {
-                    if (prev <= 1) {
-                        clearInterval(countdownInterval); // Stop the countdown when it reaches 0
-                    }
+                    if (prev <= 1) clearInterval(countdownInterval);
                     return prev - 1;
                 });
             }, 1000);
@@ -71,11 +79,7 @@ function JobApplication() {
             const response = await axiosInstance.post(
                 "/job-application/generate-content",
                 { jobTitle, jobCompany, jobDescriptionBody, customPrompt },
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                    withCredentials: true,
-                    timeout: 15000, // 15 seconds timeout for the request
-                }
+                { headers: { Authorization: `Bearer ${token}` }, withCredentials: true, timeout: 15000 }
             );
 
             if (response.data.success) {
@@ -85,81 +89,121 @@ function JobApplication() {
                 setError(response.data.message || "Failed to generate content.");
             }
         } catch (error) {
-            setError(error.response?.data.message || "An error occurred while generating content.");
+            setError("An error occurred while generating content.");
         } finally {
             setLoading(false);
         }
     };
 
-    const handleCopy = (text) => {
-        copyToClipboard(text); // Just copy text, no message or timeout needed
-    };
+    const handleCopy = (text) => copyToClipboard(text);
 
     return (
-        <div className="application-container">
-            <NavBar />
-            <div className="application-box">
-                <h2>Start an Application!</h2>
-                <div className="job-posting-info">
-                    <label>Job Posting Information</label>
-                </div>
-                <div className="job-title-info">
-                    <label>Job Title</label>
-                    <input
-                        type="text"
-                        placeholder="Job title (required)"
+        <Box>
+            <AppBar
+                position="sticky"
+                sx={{
+                    top: 30,
+                    zIndex: 1000,
+                    backgroundColor: '#192841',
+                    borderRadius: '10px',
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                }}
+            >
+                <Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                        Job Application
+                    </Typography>
+                    <Button color="inherit" onClick={() => history.push('/profile')}>Profile</Button>
+                    <Button color="inherit" onClick={() => history.push('/experience')}>Experience</Button>
+                    <Button color="inherit" onClick={() => history.push('/application')}>Application</Button>
+                    <Button color="inherit" onClick={() => history.push('/logout')}>Log Out</Button>
+                </Toolbar>
+            </AppBar>
+
+            <Box
+                sx={{
+                    maxWidth: 600,
+                    margin: '50px auto',
+                    padding: 4,
+                    backgroundColor: '#ffffff',
+                    borderRadius: 2,
+                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.3)',
+                    color: '#000000',
+                    marginTop: '100px',
+                }}
+            >
+                <Typography variant="h4" align="center" sx={{ marginBottom: 4, fontWeight: 'bold' }}>
+                    Start an Application!
+                </Typography>
+
+                <Box sx={{ marginBottom: 2 }}>
+                    <TextField
+                        label="Job Title"
+                        fullWidth
                         value={jobTitle}
                         onChange={(e) => setJobTitle(e.target.value)}
+                        sx={{ marginBottom: 2 }}
                     />
-                </div>
-                <div className="job-org-info">
-                    <label>Company / Organization</label>
-                    <input
-                        type="text"
-                        placeholder="Company (required)"
+                    <TextField
+                        label="Company / Organization"
+                        fullWidth
                         value={jobCompany}
                         onChange={(e) => setJobCompany(e.target.value)}
+                        sx={{ marginBottom: 2 }}
                     />
-                </div>
-                <div className="job-desc">
-                    <label>Description</label>
-                    <textarea
-                        placeholder="Job description / information... (required)"
+                    <TextField
+                        label="Description"
+                        multiline
+                        rows={4}
+                        fullWidth
                         value={jobDescriptionBody}
                         onChange={(e) => setJobDescriptionBody(e.target.value)}
-                    ></textarea>
-                </div>
-                <div className="additional-info">
-                    <label>Additional Information</label>
-                    <textarea
-                        placeholder="Write additional information about yourself (Optional). This prompt will help us tailor your application to your needs."
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <TextField
+                        label="Additional Information"
+                        multiline
+                        rows={2}
+                        fullWidth
                         value={customPrompt}
                         onChange={(e) => setCustomPrompt(e.target.value)}
-                    ></textarea>
-                </div>
-                <button
-                    className="generate-button"
+                        sx={{ marginBottom: 2 }}
+                    />
+                </Box>
+
+                {error && (
+                    <Typography variant="body2" color="error" align="center" sx={{ marginBottom: 2 }}>
+                        {error}
+                    </Typography>
+                )}
+
+                <Button
+                    variant="contained"
+                    fullWidth
                     onClick={handleGenerateContent}
                     disabled={loading}
+                    sx={{
+                        backgroundColor: '#1976D2',
+                        '&:hover': { backgroundColor: '#1565C0' },
+                        marginBottom: 2,
+                    }}
                 >
                     {loading ? (countdown > 0 ? `Please wait... ${countdown}s` : "Generating...") : "Generate"}
-                </button>
-
-                {error && <p className="error-message">{error}</p>}
+                </Button>
 
                 <GeneratedContent
-                    label="Generated Resume"
+                    title="Generated Resume"
                     content={generatedResume}
                     onCopy={() => handleCopy(generatedResume)}
                 />
 
                 <GeneratedContent
-                    label="Generated Cover Letter"
+                    title="Generated Cover Letter"
                     content={generatedCoverLetter}
                     onCopy={() => handleCopy(generatedCoverLetter)}
                 />
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }
 

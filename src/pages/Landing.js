@@ -15,7 +15,7 @@ function Landing() {
                 sx={{
                     top: 30,
                     zIndex: 1000,
-                    backgroundColor: '#1c1c2b',
+                    backgroundColor: '#192841',
                     borderRadius: '10px',
                     margin: '0 10px',
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
